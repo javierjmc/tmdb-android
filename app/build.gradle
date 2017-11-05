@@ -18,6 +18,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -29,9 +33,21 @@ dependencies {
     // See: https://github.com/dlew/joda-time-android
     implementation 'net.danlew:android.joda:2.9.9.1'
 
+    // Field and method binding for Android views
+    // See: https://jakewharton.github.io/butterknife/
+    implementation "com.jakewharton:butterknife:${vers.butterknife}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${vers.butterknife}"
+
     // A Model-View-Presenter / Model-View-Intent library for modern Android apps
     // See: https://github.com/sockeqwe/mosby
     implementation "com.hannesdorfmann.mosby3:mvi:${vers.mosby}"
+
+    implementation "io.reactivex.rxjava2:rxjava:${vers.rxjava2}"
+    implementation "io.reactivex.rxjava2:rxandroid:${vers.rxandroid2}"
+
+    // A logger with a small, extensible API which provides utility on top of Android's normal Log class.
+    // See: https://github.com/JakeWharton/timber
+    implementation "com.jakewharton.timber:timber:${vers.timber}"
 
     testImplementation "junit:junit:${testvers.junit}"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

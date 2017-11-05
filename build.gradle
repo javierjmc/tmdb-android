@@ -6,13 +6,17 @@ buildscript {
 
         // Versions that need to be in sync can be declared here
         vers = [
-                'compileSdk': 27,
-                'buildTools': '27.0.0',
-                'targetSdk' : 27,
-                'minSdk'    : 21,
+                'compileSdk' : 27,
+                'buildTools' : '27.0.0',
+                'targetSdk'  : 27,
+                'minSdk'     : 21,
 
-                'support'   : '27.0.0',
-                'mosby'     : '3.0.4',
+                'support'    : '27.0.0',
+                'mosby'      : '3.0.4',
+                'rxjava2'    : '2.1.6',
+                'rxandroid2' : '2.0.1',
+                'timber'     : '4.6.0',
+                'butterknife': '8.8.1',
         ]
 
         testvers = [
