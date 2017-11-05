@@ -1,15 +1,29 @@
 package com.example.themoviedb.movielist;
 
-import com.example.themoviedb.data.Movie;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
 
-import java.util.List;
+import io.reactivex.Observable;
 
 public interface MovieListView extends MvpView {
 
-    void setProgressIndicator(boolean active);
+    /**
+     * The intent to load movies
+     *
+     * @return The value of the emitted item (boolean) can be ignored. true or false has no different meaning.
+     */
+    Observable<Boolean> loadMoviesIntent();
 
-    void showMovies(List<Movie> notes);
+    /**
+     * The intent to load movie details
+     *
+     * @return Observable with the id of the movie tp be displayed.
+     */
+    Observable<Long> loadMovieDetailsIntent();
 
-    void showMovieDetails(Long movieId);
+    /**
+     * Renders the View
+     *
+     * @param viewState The current viewState state that should be displayed
+     */
+    void render(MovieListViewState viewState);
 }
