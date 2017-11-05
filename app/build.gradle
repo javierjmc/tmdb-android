@@ -25,6 +25,10 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:${vers.support}"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
+    // Joda-Time library
+    // See: https://github.com/dlew/joda-time-android
+    implementation 'net.danlew:android.joda:2.9.9.1'
+
     // A Model-View-Presenter / Model-View-Intent library for modern Android apps
     // See: https://github.com/sockeqwe/mosby
     implementation "com.hannesdorfmann.mosby3:mvi:${vers.mosby}"
