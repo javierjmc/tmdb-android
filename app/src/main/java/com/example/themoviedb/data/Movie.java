@@ -5,15 +5,15 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 public class Movie {
-    public long mId;
-    public float mVoteAverage;
-    public long mVoteCount;
-    public String mTitle;
-    public String mPosterPath;
-    public String mOriginalLanguage;
-    public String mOriginalTitle;
-    public List<Long> mGenres;
-    public boolean mAdult;
-    public String mOverview;
-    public DateTime mReleaseDate;
+    public long id;
+    public float voteAverage;
+    public long voteCount;
+    public String title;
+    public String posterPath;
+    public String originalLanguage;
+    public String originalTitle;
+    public List<Long> genres;
+    public boolean adult;
+    public String overview;
+    public DateTime releaseDate;
 }
