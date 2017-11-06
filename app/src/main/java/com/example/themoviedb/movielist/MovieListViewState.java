@@ -16,7 +16,7 @@ public final class MovieListViewState {
     @Nullable
     private final Throwable pullToRefreshError; // if != null, shows error toast that pull-to-refresh failed
 
-    public MovieListViewState(boolean loadingMovies, Throwable moviesError, List<Movie> data, boolean loadingPullToRefresh, Throwable pullToRefreshError) {
+    public MovieListViewState(boolean loadingMovies, @Nullable Throwable moviesError, List<Movie> data, boolean loadingPullToRefresh, @Nullable Throwable pullToRefreshError) {
         this.loadingMovies = loadingMovies;
         this.moviesError = moviesError;
         this.data = data;

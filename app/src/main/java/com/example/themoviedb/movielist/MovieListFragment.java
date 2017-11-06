@@ -22,7 +22,7 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
     @BindView(R.id.progress)
     ProgressBar mProgressBar;
 
-    private MovieListAdapter mMovieListAdapter;
+    private MovieListAdapter mMovieListAdapter = new MovieListAdapter();
 
     @Override
     public int layoutRes() {
@@ -38,8 +38,6 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        mMovieListAdapter = new MovieListAdapter();
         mRecyclerView.setAdapter(mMovieListAdapter);
     }
 
@@ -55,6 +53,8 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
 
     @Override
     public void render(MovieListViewState viewState) {
-
+        mRecyclerView.setAdapter(mMovieListAdapter);
+        mMovieListAdapter.setMovieList(viewState.getData());
+        mProgressBar.setVisibility(viewState.isLoadingMovies() || viewState.isLoadingPullToRefresh() ? View.VISIBLE : View.GONE);
     }
 }

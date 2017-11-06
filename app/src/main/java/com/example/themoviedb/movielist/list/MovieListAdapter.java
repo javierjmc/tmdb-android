@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 import com.example.themoviedb.R;
 import com.example.themoviedb.data.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> {
 
-    private List<Movie> movieList;
+    private List<Movie> movieList = new ArrayList<>();
 
     public void setMovieList(List<Movie> movieList) {
         this.movieList = movieList;
