@@ -50,6 +50,12 @@ dependencies {
     // See: https://github.com/JakeWharton/timber
     implementation "com.jakewharton.timber:timber:${vers.timber}"
 
+    // A collection of source code generators for Java.
+    // See: https://github.com/google/auto
+    provided 'com.google.auto.value:auto-value:1.5.2' // needed for Android Studio
+    annotationProcessor 'com.google.auto.value:auto-value:1.5.2'
+    //implementation "com.google.auto.value:auto-value:1.5.2"
+
     testImplementation "junit:junit:${testvers.junit}"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

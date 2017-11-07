@@ -15,15 +15,41 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
 
     private final List emptyList = Collections.EMPTY_LIST;
     private final List dummy = new ArrayList<Movie>() {{
-        add(new Movie(0, 7.5f, 499, "It", null, null, null, new ArrayList<Long>(){{add(1l); add(2l);}}, false, "overview of the movie", DateTime.now()));
-        add(new Movie(1, 5.5f, 499, "Movie 2", null, null, null, new ArrayList<Long>(){{add(1l); add(2l);}}, false, "overview of the movie 2", DateTime.now()));
-        add(new Movie(2, 3f, 499, "It 3", null, null, null, new ArrayList<Long>(){{add(1l); add(2l);}}, false, "overview of the movie 3", DateTime.now()));
-        add(new Movie(3, 1f, 499, "It 5", null, null, null, new ArrayList<Long>(){{add(1l); add(2l);}}, false, "overview of the movie 4", DateTime.now()));
+        add(Movie.builder()
+            .id(0)
+            .voteAverage(7.5f)
+            .voteCount(10)
+            .title("It")
+            .posterPath(null)
+            .originalLanguage(null)
+            .originalTitle(null)
+            .genres(new ArrayList<Long>() {{
+                add(1L);
+                add(2L);
+            }})
+            .adult(false)
+            .overview("Movie's overview")
+            .releaseDate(DateTime.now())
+            .build());
+
+        add(Movie.builder()
+            .id(1)
+            .voteAverage(8f)
+            .voteCount(10)
+            .title("It 2")
+            .posterPath(null)
+            .originalLanguage(null)
+            .originalTitle(null)
+            .genres(new ArrayList<Long>() {{
+                add(1L);
+                add(2L);
+            }})
+            .adult(false)
+            .overview("Movie's overview 2")
+            .releaseDate(DateTime.now())
+            .build());
+
     }};
-
-
-
-//    public Movie(long id, float voteAverage, long voteCount, String title, String posterPath, String originalLanguage, String originalTitle, List<Long> genres, boolean adult, String overview, DateTime releaseDate) {
 
     @Override
     protected void bindIntents() {

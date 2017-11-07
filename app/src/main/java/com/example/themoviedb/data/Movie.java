@@ -1,77 +1,67 @@
 package com.example.themoviedb.data;
 
+import android.support.annotation.Nullable;
+
+import com.google.auto.value.AutoValue;
+
 import org.joda.time.DateTime;
 
 import java.util.List;
 
-public class Movie {
-    public long id;
-    public float voteAverage;
-    public long voteCount;
-    public String title;
-    public String posterPath;
-    public String originalLanguage;
-    public String originalTitle;
-    public List<Long> genres;
-    public boolean adult;
-    public String overview;
-    public DateTime releaseDate;
+@AutoValue
+public abstract class Movie {
+    public abstract long id();
 
-    public Movie(long id, float voteAverage, long voteCount, String title, String posterPath, String originalLanguage, String originalTitle, List<Long> genres, boolean adult, String overview, DateTime releaseDate) {
-        this.id = id;
-        this.voteAverage = voteAverage;
-        this.voteCount = voteCount;
-        this.title = title;
-        this.posterPath = posterPath;
-        this.originalLanguage = originalLanguage;
-        this.originalTitle = originalTitle;
-        this.genres = genres;
-        this.adult = adult;
-        this.overview = overview;
-        this.releaseDate = releaseDate;
+    public abstract float voteAverage();
+
+    public abstract long voteCount();
+
+    public abstract String title();
+
+    @Nullable public abstract String posterPath();
+
+    @Nullable public abstract String originalLanguage();
+
+    @Nullable public abstract String originalTitle();
+
+    public abstract List<Long> genres();
+
+    public abstract boolean adult();
+
+    public abstract String overview();
+
+    public abstract DateTime releaseDate();
+
+    public static Builder builder() {
+        return new AutoValue_Movie.Builder();
     }
 
-    public long getId() {
-        return id;
-    }
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder id(long value);
 
-    public float getVoteAverage() {
-        return voteAverage;
-    }
+        public abstract Builder voteAverage(float value);
 
-    public long getVoteCount() {
-        return voteCount;
-    }
+        public abstract Builder voteCount(long value);
 
-    public String getTitle() {
-        return title;
-    }
+        public abstract Builder title(String value);
 
-    public String getPosterPath() {
-        return posterPath;
-    }
+        public abstract Builder posterPath(String value);
 
-    public String getOriginalLanguage() {
-        return originalLanguage;
-    }
+        public abstract Builder originalLanguage(String value);
 
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
+        public abstract Builder originalTitle(String value);
 
-    public List<Long> getGenres() {
-        return genres;
-    }
+        public abstract Builder genres(List<Long> value);
 
-    public boolean isAdult() {
-        return adult;
-    }
+        public abstract Builder adult(boolean value);
 
-    public String getOverview() {
-        return overview;
-    }
+        public abstract Builder overview(String value);
 
-    public DateTime getReleaseDate() {
-        return releaseDate;
+        public abstract Builder releaseDate(DateTime value);
+
+        public abstract Movie build();
     }
 }
+
+
