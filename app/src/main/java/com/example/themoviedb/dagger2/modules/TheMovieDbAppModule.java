@@ -12,7 +12,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Module(
     includes = {
         AndroidInjectionModule.class,
-        AndroidSupportInjectionModule.class
+        AndroidSupportInjectionModule.class,
+        ApiModule.class
     })
 public abstract class TheMovieDbAppModule {
     @Provides

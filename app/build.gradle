@@ -4,18 +4,53 @@ android {
     compileSdkVersion vers.compileSdk
     buildToolsVersion vers.buildTools
 
+    final BASE_APPLICATION_ID = 'com.example.themoviedb'
+
     defaultConfig {
-        applicationId "com.example.themoviedb"
+        applicationId BASE_APPLICATION_ID
         minSdkVersion vers.minSdk
         targetSdkVersion vers.targetSdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    flavorDimensions "themoviedb"
+
+    productFlavors {
+        // The production flavored app uses the production api
+        production {
+            dimension "themoviedb"
+            applicationId BASE_APPLICATION_ID
+            testApplicationId applicationId + '.test'
+
+            buildConfigField "String", "SERVER_URL", '"https://api.themoviedb.org"'
+        }
+
+        // The staging flavored app uses the staging api
+        staging {
+            dimension "themoviedb"
+            applicationId BASE_APPLICATION_ID + ".staging"
+            testApplicationId applicationId + '.test'
+
+            buildConfigField "String", "SERVER_URL", '"https://api.themoviedb.org"'
+        }
+    }
+
     buildTypes {
+
+        // The Debug builds are used for development and local testing
+        debug {
+            minifyEnabled false
+            debuggable true
+            applicationIdSuffix ".debug"
+        }
+
+        // The Release builds are used for publishing to play store
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.release
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
@@ -63,6 +98,16 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
     annotationProcessor "com.google.dagger:dagger-compiler:${vers.dagger}"
     annotationProcessor "com.google.dagger:dagger-android-processor:${vers.dagger}"
+
+    // A type-safe HTTP client for Android and Java
+    // See: https://github.com/square/retrofit
+    implementation "com.squareup.retrofit2:retrofit:${vers.retrofit}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${vers.retrofit}"
+    implementation "com.squareup.retrofit2:converter-scalars:${vers.retrofit}"
+    implementation "com.squareup.retrofit2:converter-moshi:${vers.retrofit}"
+
+    // OkHttp: https://github.com/square/okhttp
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 
 
     testImplementation "junit:junit:${testvers.junit}"
