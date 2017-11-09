@@ -58,7 +58,7 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
             .flatMap(ignored -> Observable.just(dummy)
                 .map(items -> new MovieListViewState(false, null, items, false, null))
                 .startWith(new MovieListViewState(true, null, emptyList, false, null))
-                .onErrorReturn(error -> new MovieListViewState(false, null/*error*/, emptyList, false, null)));
+                .onErrorReturn(error -> new MovieListViewState(false, (Throwable) error, emptyList, false, null)));
 
         subscribeViewState(loadMovies, MovieListView::render);
     }

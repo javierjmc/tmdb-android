@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.themoviedb.BaseFragment;
 import com.example.themoviedb.R;
@@ -56,5 +57,11 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
         mRecyclerView.setAdapter(mMovieListAdapter);
         mMovieListAdapter.setMovieList(viewState.getData());
         mProgressBar.setVisibility(viewState.isLoadingMovies() || viewState.isLoadingPullToRefresh() ? View.VISIBLE : View.GONE);
+
+        final Throwable error = viewState.getMoviesError() != null ? viewState.getMoviesError() : viewState.getPullToRefreshError();
+
+        if (error != null) {
+            Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
