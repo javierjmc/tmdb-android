@@ -2,7 +2,7 @@ package com.example.themoviedb.movielist;
 
 import android.support.annotation.Nullable;
 
-import com.example.themoviedb.data.Movie;
+import com.example.themoviedb.data.model.Movie;
 
 import java.util.List;
 

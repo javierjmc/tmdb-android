@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.themoviedb.R;
-import com.example.themoviedb.data.Movie;
+import com.example.themoviedb.data.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;

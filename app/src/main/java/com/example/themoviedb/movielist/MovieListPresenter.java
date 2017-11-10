@@ -1,6 +1,6 @@
 package com.example.themoviedb.movielist;
 
-import com.example.themoviedb.data.Movie;
+import com.example.themoviedb.data.model.Movie;
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter;
 
 import org.joda.time.DateTime;

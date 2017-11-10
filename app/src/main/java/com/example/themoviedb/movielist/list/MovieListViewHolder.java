@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.themoviedb.R;
-import com.example.themoviedb.data.Movie;
+import com.example.themoviedb.data.model.Movie;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
