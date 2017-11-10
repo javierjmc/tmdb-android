@@ -1,4 +1,4 @@
-package com.example.themoviedb.data;
+package com.example.themoviedb.data.model;
 
 import android.support.annotation.Nullable;
 
@@ -9,7 +9,7 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 @AutoValue
-public abstract class Movie {
+public abstract class Movie implements FeedItem {
     public abstract long id();
 
     public abstract float voteAverage();
@@ -18,11 +18,14 @@ public abstract class Movie {
 
     public abstract String title();
 
-    @Nullable public abstract String posterPath();
+    @Nullable
+    public abstract String posterPath();
 
-    @Nullable public abstract String originalLanguage();
+    @Nullable
+    public abstract String originalLanguage();
 
-    @Nullable public abstract String originalTitle();
+    @Nullable
+    public abstract String originalTitle();
 
     public abstract List<Long> genres();
 
