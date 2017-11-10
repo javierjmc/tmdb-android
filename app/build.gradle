@@ -24,7 +24,8 @@ android {
             applicationId BASE_APPLICATION_ID
             testApplicationId applicationId + '.test'
 
-            buildConfigField "String", "SERVER_URL", '"https://api.themoviedb.org"'
+            buildConfigField 'String', 'SERVER_URL', THEMOVIEDB_ENDPOINT
+            buildConfigField 'String', 'SERVER_API_KEY', THEMOVIEDB_API_KEY
         }
 
         // The staging flavored app uses the staging api
@@ -33,7 +34,8 @@ android {
             applicationId BASE_APPLICATION_ID + ".staging"
             testApplicationId applicationId + '.test'
 
-            buildConfigField "String", "SERVER_URL", '"https://api.themoviedb.org"'
+            buildConfigField 'String', 'SERVER_URL', THEMOVIEDB_ENDPOINT
+            buildConfigField 'String', 'SERVER_API_KEY', THEMOVIEDB_API_KEY
         }
     }
 
