@@ -10,7 +10,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 @AutoValue
-public abstract class Movie implements FeedItem {
+public abstract class MovieDetails implements FeedItem {
+
     public abstract long id();
 
     @Json(name = "vote_average")
@@ -34,7 +35,7 @@ public abstract class Movie implements FeedItem {
     public abstract String originalTitle();
 
     @Json(name = "genre_ids")
-    public abstract List<Long> genreIds();
+    public abstract List<Genre> genreIds();
 
     public abstract boolean adult();
 
@@ -43,8 +44,12 @@ public abstract class Movie implements FeedItem {
     @Json(name = "release_date")
     public abstract DateTime releaseDate();
 
+    public abstract int runtime();
+
+    public abstract String tagline();
+
     public static Builder builder() {
-        return new AutoValue_Movie.Builder();
+        return new AutoValue_MovieDetails.Builder();
     }
 
     @AutoValue.Builder
@@ -63,7 +68,7 @@ public abstract class Movie implements FeedItem {
 
         public abstract Builder originalTitle(String value);
 
-        public abstract Builder genreIds(List<Long> value);
+        public abstract Builder genreIds(List<Genre> value);
 
         public abstract Builder adult(boolean value);
 
@@ -71,8 +76,10 @@ public abstract class Movie implements FeedItem {
 
         public abstract Builder releaseDate(DateTime value);
 
-        public abstract Movie build();
+        public abstract Builder runtime(int value);
+
+        public abstract Builder tagline(String value);
+
+        public abstract MovieDetails build();
     }
 }
-
-

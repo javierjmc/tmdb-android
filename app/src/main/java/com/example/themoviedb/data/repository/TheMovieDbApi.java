@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.example.themoviedb.data.model.Genre;
 import com.example.themoviedb.data.model.Movie;
+import com.example.themoviedb.data.model.MovieDetails;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import retrofit2.http.Query;
 public interface TheMovieDbApi {
 
     /**
-     * Discover movies by different types of data like average rating, number of votes, genres and certifications.
+     * Discover movies by different types of data like average rating, number of votes, genreIds and certifications.
      * See: https://developers.themoviedb.org/3/discover/movie-discover
      *
      * @param sortBy     The sorting option.<br/>
@@ -57,12 +58,12 @@ public interface TheMovieDbApi {
      *                default: popularity.desc
      */
     @GET("/3/movie/{movieId}")
-    Observable<Movie> getMovieDetails(@Path("movieId") long movieId,
-                                      @Nullable @Query("sort_by") String sortBy);
+    Observable<MovieDetails> getMovieDetails(@Path("movieId") long movieId,
+                                             @Nullable @Query("sort_by") String sortBy);
 
     /**
      * Get a list of similar movies. This is not the same as the "Recommendation" system you see on the website.
-     * These items are assembled by looking at keywords and genres.
+     * These items are assembled by looking at keywords and genreIds.
      * See: https://developers.themoviedb.org/3/movies/get-similar-movies
      *
      * @param movieId The id of the movie to get similar movies of.
@@ -85,7 +86,7 @@ public interface TheMovieDbApi {
                                              @Nullable @Query("page") String page);
 
     /**
-     * Get the list of official genres for movies.
+     * Get the list of official genreIds for movies.
      * See: https://developers.themoviedb.org/3/genres/get-movie-list
      */
     @GET("/3/genre/movie/list")

@@ -23,7 +23,7 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
             .posterPath(null)
             .originalLanguage(null)
             .originalTitle(null)
-            .genres(new ArrayList<Long>() {{
+            .genreIds(new ArrayList<Long>() {{
                 add(1L);
                 add(2L);
             }})
@@ -40,7 +40,7 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
             .posterPath(null)
             .originalLanguage(null)
             .originalTitle(null)
-            .genres(new ArrayList<Long>() {{
+            .genreIds(new ArrayList<Long>() {{
                 add(1L);
                 add(2L);
             }})
