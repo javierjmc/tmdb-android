@@ -113,6 +113,9 @@ dependencies {
 
 
     testImplementation "junit:junit:${testvers.junit}"
+    testImplementation "com.squareup.okhttp3:mockwebserver:${vers.okhttp}"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+
 }

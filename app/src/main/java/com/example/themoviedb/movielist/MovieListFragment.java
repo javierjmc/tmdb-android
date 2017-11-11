@@ -43,7 +43,7 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
     }
 
     @Override
-    public Observable<Boolean> loadMoviesIntent() {
+    public Observable<Boolean> loadMoviesFirstPageIntent() {
         return Observable.just(true).doOnComplete(() -> Timber.d("loadMovies completed"));
     }
 

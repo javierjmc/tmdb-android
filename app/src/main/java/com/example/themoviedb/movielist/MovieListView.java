@@ -11,7 +11,7 @@ public interface MovieListView extends MvpView {
      *
      * @return The value of the emitted item (boolean) can be ignored. true or false has no different meaning.
      */
-    Observable<Boolean> loadMoviesIntent();
+    Observable<Boolean> loadMoviesFirstPageIntent();
 
     /**
      * The intent to load movie details

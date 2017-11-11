@@ -20,6 +20,7 @@ buildscript {
                 'dagger'     : '2.13',
                 'autovalue'  : '1.5.2',
                 'retrofit'   : '2.3.0',
+                'okhttp'     : '3.6.0',
         ]
 
         testvers = [

@@ -54,7 +54,7 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
     @Override
     protected void bindIntents() {
 
-        Observable<MovieListViewState> loadMovies = intent(MovieListView::loadMoviesIntent)
+        Observable<MovieListViewState> loadMovies = intent(MovieListView::loadMoviesFirstPageIntent)
             .flatMap(ignored -> Observable.just(dummy)
                 .map(items -> new MovieListViewState(false, null, items, false, null))
                 .startWith(new MovieListViewState(true, null, emptyList, false, null))
