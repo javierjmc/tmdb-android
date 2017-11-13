@@ -16,12 +16,13 @@ buildscript {
                 'rxjava2'    : '2.1.6',
                 'rxandroid2' : '2.0.1',
                 'timber'     : '4.6.0',
-                'slf4j'     : '3.0',
+                'slf4j'      : '3.0',
                 'butterknife': '8.8.1',
                 'dagger'     : '2.13',
                 'autovalue'  : '1.5.2',
                 'retrofit'   : '2.3.0',
                 'okhttp'     : '3.6.0',
+                'glide'      : '4.3.1',
         ]
 
         testvers = [
@@ -34,6 +35,8 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
@@ -47,6 +50,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
     }
 }
 
