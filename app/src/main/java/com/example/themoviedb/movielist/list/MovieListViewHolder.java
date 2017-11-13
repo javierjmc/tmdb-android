@@ -44,7 +44,7 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
     public void bind(Movie movie) {
         mTitle.setText(movie.title());
         mRating.setText(String.valueOf(movie.voteAverage()));
-        mDate.setText(movie.releaseDate().toString());
+        mDate.setText(Integer.toString(movie.releaseDate().getYear()));
         mGenres.setText(movie.genreIds().toString());
         mOverview.setText(movie.overview());
 
