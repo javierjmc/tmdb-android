@@ -1,4 +1,4 @@
-package com.example.themoviedb.data.repository;
+package com.example.themoviedb.data.domain;
 
 import android.support.annotation.Nullable;
 
