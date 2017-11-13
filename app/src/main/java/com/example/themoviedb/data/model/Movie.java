@@ -4,6 +4,8 @@ import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 import com.squareup.moshi.Json;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
 
 import org.joda.time.DateTime;
 
@@ -72,6 +74,10 @@ public abstract class Movie implements FeedItem {
         public abstract Builder releaseDate(DateTime value);
 
         public abstract Movie build();
+    }
+
+    public static JsonAdapter<Movie> jsonAdapter(Moshi moshi) {
+        return new AutoValue_Movie.MoshiJsonAdapter(moshi);
     }
 }
 
