@@ -8,7 +8,7 @@ import com.example.themoviedb.data.model.MovieDetails;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -39,10 +39,10 @@ public interface TheMovieDbApi {
      *                   minimum: 0
      */
     @GET("/3/discover/movie")
-    Observable<Movie> getMovies(@Nullable @Query("sort_by") String sortBy,
-                                @Nullable @Query("page") String page,
-                                @Nullable @Query("with_genres") String withGenres,
-                                @Nullable @Query("vote_average.gte") String minRating);
+    Single<ApiResponseSchema<List<Movie>>> getMovies(@Nullable @Query("sort_by") String sortBy,
+                                                     @Nullable @Query("page") int page,
+                                                     @Nullable @Query("with_genres") String withGenres,
+                                                     @Nullable @Query("vote_average.gte") String minRating);
 
     /**
      * Get the primary information about a movie
@@ -58,8 +58,8 @@ public interface TheMovieDbApi {
      *                default: popularity.desc
      */
     @GET("/3/movie/{movieId}")
-    Observable<MovieDetails> getMovieDetails(@Path("movieId") long movieId,
-                                             @Nullable @Query("sort_by") String sortBy);
+    Single<MovieDetails> getMovieDetails(@Path("movieId") long movieId,
+                                         @Nullable @Query("sort_by") String sortBy);
 
     /**
      * Get a list of similar movies. This is not the same as the "Recommendation" system you see on the website.
@@ -81,14 +81,14 @@ public interface TheMovieDbApi {
      *                default: 1
      */
     @GET("/3/movie/{movieId}/similar")
-    Observable<List<Movie>> getSimilarMovies(@Path("movieId") long movieId,
-                                             @Nullable @Query("sort_by") String sortBy,
-                                             @Nullable @Query("page") String page);
+    Single<List<Movie>> getSimilarMovies(@Path("movieId") long movieId,
+                                         @Nullable @Query("sort_by") String sortBy,
+                                         @Nullable @Query("page") int page);
 
     /**
      * Get the list of official genreIds for movies.
      * See: https://developers.themoviedb.org/3/genres/get-movie-list
      */
     @GET("/3/genre/movie/list")
-    Observable<List<Genre>> getGenres();
+    Single<List<Genre>> getGenres();
 }

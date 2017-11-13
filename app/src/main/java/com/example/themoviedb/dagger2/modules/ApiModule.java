@@ -22,7 +22,8 @@ import timber.log.Timber;
 @Module(
     includes = {
         OkHttpModule.class,
-        MoshiModule.class
+        MoshiModule.class,
+        RestServiceModule.class
     })
 public class ApiModule {
 
