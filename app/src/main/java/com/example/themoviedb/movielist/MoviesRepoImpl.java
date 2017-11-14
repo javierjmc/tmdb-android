@@ -4,7 +4,7 @@ import com.example.themoviedb.data.domain.ApiSchedulers;
 import com.example.themoviedb.data.domain.MoviesDataRepo;
 import com.example.themoviedb.data.domain.MoviesRepo;
 import com.example.themoviedb.data.domain.TheMovieDbApi;
-import com.example.themoviedb.data.model.Movie;
+import com.example.themoviedb.data.model.FeedItem;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class MoviesRepoImpl implements MoviesRepo {
     }
 
     @Override
-    public Observable<List<Movie>> getMostPopularMovies(final int page) {
+    public Observable<List<FeedItem>> getMostPopularMovies(final int page) {
         return theMovieDbApi.getMovies(null, page, null, null)
             .map(response -> response.getResults())
             .toObservable()
