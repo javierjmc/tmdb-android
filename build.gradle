@@ -11,7 +11,7 @@ buildscript {
                 'targetSdk'  : 27,
                 'minSdk'     : 21,
 
-                'support'    : '27.0.0',
+                'support'    : '27.0.1',
                 'mosby'      : '3.0.4',
                 'rxjava2'    : '2.1.6',
                 'rxandroid2' : '2.0.1',

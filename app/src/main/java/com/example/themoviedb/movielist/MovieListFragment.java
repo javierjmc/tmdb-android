@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -23,8 +24,6 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
 
     @BindView(R.id.movie_list)
     RecyclerView mRecyclerView;
-    @BindView(R.id.progress)
-    ProgressBar mProgressBar;
 
     @Inject
     Provider<MovieListPresenter> mPresenterProvider;
@@ -35,6 +34,9 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
     public int layoutRes() {
         return R.layout.fragment_movielist;
     }
+
+    @Override
+    public int toolbarTitle() { return R.string.discover_popular_movies;}
 
     @NonNull
     @Override
