@@ -26,7 +26,8 @@ buildscript {
         ]
 
         testvers = [
-                'junit': '4.12'
+                'junit'  : '4.12',
+                'mockito': '2.12.0'
         ]
 
     }
