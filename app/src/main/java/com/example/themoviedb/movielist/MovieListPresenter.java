@@ -26,10 +26,11 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
 
         Observable<MovieListViewState> loadMovies = intent(MovieListView::loadMoviesFirstPageIntent)
             .flatMap(ignored -> moviesRepo.getMostPopularMovies(1)
-                .map(movies -> new MovieListViewState(false, null, movies, false, null))
-                .startWith(new MovieListViewState(true, null, emptyList, false, null))
-                .onErrorReturn(error -> new MovieListViewState(false, (Throwable) error, emptyList, false, null)));
+                .map(movies -> MovieListViewState.builder().loadingFirstPage(false).firstPageError(null).data(movies).build())
+                .startWith(MovieListViewState.builder().loadingFirstPage(true).firstPageError(null).build())
+                .onErrorReturn(error -> MovieListViewState.builder().loadingFirstPage(false).firstPageError(error).build()));
 
         subscribeViewState(loadMovies, MovieListView::render);
     }
 }
+

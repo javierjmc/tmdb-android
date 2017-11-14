@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.themoviedb.R;
+import com.example.themoviedb.data.model.FeedItem;
 import com.example.themoviedb.data.model.Movie;
 
 import java.util.ArrayList;
@@ -13,9 +14,9 @@ import java.util.List;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> {
 
-    private List<Movie> movieList = new ArrayList<>();
+    private List<FeedItem> movieList = new ArrayList<>();
 
-    public void setMovieList(List<Movie> movieList) {
+    public void setMovieList(List<FeedItem> movieList) {
         this.movieList = movieList;
         notifyDataSetChanged();
     }
@@ -28,7 +29,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> 
 
     @Override
     public void onBindViewHolder(MovieListViewHolder viewHolder, int position) {
-        viewHolder.bind(movieList.get(position));
+        viewHolder.bind((Movie) movieList.get(position));
     }
 
     @Override

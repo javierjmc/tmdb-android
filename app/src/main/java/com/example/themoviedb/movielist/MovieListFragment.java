@@ -60,10 +60,10 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
 
     @Override
     public void render(MovieListViewState viewState) {
-        mMovieListAdapter.setMovieList(viewState.getData());
-        mProgressBar.setVisibility(viewState.isLoadingMovies() || viewState.isLoadingPullToRefresh() ? View.VISIBLE : View.GONE);
+        mMovieListAdapter.setMovieList(viewState.data());
+        mProgressBar.setVisibility(viewState.isLoading() ? View.VISIBLE : View.GONE);
 
-        final Throwable error = viewState.getMoviesError() != null ? viewState.getMoviesError() : viewState.getPullToRefreshError();
+        final Throwable error = viewState.getError();
 
         if (error != null) {
             Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
