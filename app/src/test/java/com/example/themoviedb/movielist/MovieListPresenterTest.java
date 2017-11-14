@@ -34,7 +34,7 @@ import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Unit tests for the MovieListPresenter.
+ * Unit tests for the {@link MovieListPresenter}.
  */
 public class MovieListPresenterTest {
 
@@ -69,7 +69,7 @@ public class MovieListPresenterTest {
         final List<FeedItem> expectedData = new ArrayList<>(mockMovies.size());
         Collections.copy(expectedData, mockMovies);
 
-        final MovieListViewState loadingMoviesFirstPage = MovieListViewState.builder().loadingFirstPage(true).build();
+        final MovieListViewState loadingMoviesFirstPage = MovieListViewState.builder().loadingFirstPage(true).data(Collections.EMPTY_LIST).build();
         final MovieListViewState successMoviesFirstPage = MovieListViewState.builder().loadingFirstPage(false).data(expectedData).build();
 
         robot.assertViewStateRendered(loadingMoviesFirstPage, successMoviesFirstPage);

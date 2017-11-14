@@ -37,7 +37,7 @@ public abstract class MovieListViewState {
     }
 
     public boolean isLoading() {
-        return loadingFirstPage() || loadingNextPage() || loadingPullToRefresh();
+        return loadingFirstPage() != null ? loadingFirstPage() : loadingNextPage() != null ? loadingNextPage() : loadingPullToRefresh() != null ? loadingPullToRefresh() : false;
     }
 
     public Throwable getError() {
