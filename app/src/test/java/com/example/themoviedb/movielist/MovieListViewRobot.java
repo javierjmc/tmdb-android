@@ -17,8 +17,12 @@
 
 package com.example.themoviedb.movielist;
 
+import org.junit.Assert;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
@@ -66,5 +70,54 @@ public class MovieListViewRobot {
         loadMoviesFirstPageSubject.onNext(true);
     }
 
+    /**
+     * Blocking waits for view.render() calls and
+     *
+     * @param expectedMovieListViewState The expected  MovieListViewStates that will be passed to
+     *                                   view.render()
+     */
+    public void assertViewStateRendered(MovieListViewState... expectedMovieListViewState) {
 
+        if (expectedMovieListViewState == null) {
+            throw new NullPointerException("expectedHomeViewStates == null");
+        }
+
+        int eventsCount = expectedMovieListViewState.length;
+        renderEventSubject.take(eventsCount)
+            .timeout(10, TimeUnit.SECONDS)
+            .blockingSubscribe();
+
+
+        // Wait for few milli seconds to ensure that no more render events have occurred
+        // before finishing the test and checking expectations (asserts)
+        /*try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
+        if (renderEventSubject.getValues().length > eventsCount) {
+            Assert.fail("Expected to wait for "
+                + eventsCount
+                + ", but there were "
+                + renderEventSubject.getValues().length
+                + " Events in total, which is more than expected: "
+                + arrayToString(renderEventSubject.getValues()));
+        }
+
+        Assert.assertEquals(Arrays.asList(expectedMovieListViewState), renderEvents);
+    }
+
+    /**
+     * Simple helper function to print the content of an array as a string
+     */
+    private String arrayToString(Object[] array) {
+        StringBuffer buffer = new StringBuffer();
+        for (Object o : array) {
+            buffer.append(o.toString());
+            buffer.append("\n");
+        }
+
+        return buffer.toString();
+    }
 }

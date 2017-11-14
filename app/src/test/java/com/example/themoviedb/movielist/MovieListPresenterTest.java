@@ -17,59 +17,41 @@
 
 package com.example.themoviedb.movielist;
 
-import com.example.themoviedb.BuildConfig;
+import com.example.themoviedb.data.domain.MoviesRepo;
 import com.example.themoviedb.data.model.FeedItem;
-import com.example.themoviedb.data.model.Genre;
-import com.example.themoviedb.data.model.Movie;
 import com.example.themoviedb.movielist.utils.MockObjects;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-import com.squareup.moshi.Types;
 
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.lang.reflect.Type;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 
 /**
  * Unit tests for the MovieListPresenter.
  */
 public class MovieListPresenterTest {
 
-    private final Moshi moshi = new Moshi.Builder().build();
-    private final Type type = Types.newParameterizedType(List.class, Movie.class, Genre.class);
-    private final JsonAdapter<List<FeedItem>> adapter = moshi.adapter(type);
+    private final List<FeedItem> mockMovies = MockObjects.getMockMovies();
 
-    private MockWebServer mockWebServer;
+    private class DummyMoviesRepo implements MoviesRepo {
+
+        @Override
+        public Observable<List<FeedItem>> getMostPopularMovies(int page) {
+            return Observable.just(mockMovies);
+        }
+    }
 
     @BeforeClass
     public static void init() throws Exception {
         // Tell RxAndroid to not use android main ui thread scheduler
         RxAndroidPlugins.setInitMainThreadSchedulerHandler(schedulerCallable -> Schedulers.trampoline());
-    }
-
-    @Before
-    public void beforeEachTest() throws Exception {
-        mockWebServer = new MockWebServer();
-        mockWebServer.start();
-
-        // Set the apps url to the local mock server
-        //BuildConfig.SERVER_URL = mockWebServer.url("").toString();
-    }
-
-    @After
-    public void afterEachTest() throws Exception {
-        mockWebServer.shutdown();
     }
 
     @AfterClass
@@ -79,42 +61,17 @@ public class MovieListPresenterTest {
 
     @Test
     public void loadingMoviesFirstPage() {
-        //
-        // Prepare mock server to deliver mock response on incoming http request
-        //
-        final List<FeedItem> mockMovies = MockObjects.getMockMovies();
+        final MovieListPresenter presenter = new MovieListPresenter(new DummyMoviesRepo());
+        final MovieListViewRobot robot = new MovieListViewRobot(presenter);
 
-        mockWebServer.enqueue(new MockResponse().setBody(adapter.toJson(mockMovies)));
+        robot.fireLoadMoviesFirstPageIntent();
 
-        //
-        // init the robot to drive to View which triggers intents on the presenter
-        //
+        final List<FeedItem> expectedData = new ArrayList<>(mockMovies.size());
+        Collections.copy(expectedData, mockMovies);
 
-        /*final MovieListPresenter presenter = new DependencyInjection().newHomePresenter();   // In a real app you could use dagger or instantiate the Presenter manually like new HomePresenter(...)
-        MovieListViewRobot robot = new MovieListViewRobot(presenter);*/
+        final MovieListViewState loadingMoviesFirstPage = MovieListViewState.builder().loadingFirstPage(true).build();
+        final MovieListViewState successMoviesFirstPage = MovieListViewState.builder().loadingFirstPage(false).data(expectedData).build();
 
-        //robot.fireLoadMoviesFirstPageIntent();
-
-        //
-        // we expect that 2 view.render() events happened with the following HomeViewState:
-        // 1. show loading indicator
-        // 2. show the items with the first page
-        //
-        /*List<FeedItem> expectedData = Arrays.asList(
-            new SectionHeader("category1"),
-            mockProducts.get(0),
-            mockProducts.get(1),
-            mockProducts.get(2),
-            new AdditionalItemsLoadable(2, "category1", false, null)
-        );
-
-        MovieListViewState loadingMoviesFirstPage = new MovieListViewState.Builder().firstPageLoading(true).build();
-        MovieListViewState firstPage = new MovieListViewState.Builder().data(expectedData).build();*/
-
-        // Check if as expected
-
-        //robot.assertViewStateRendered(loadingMoviesFirstPage, firstPage);
+        robot.assertViewStateRendered(loadingMoviesFirstPage, successMoviesFirstPage);
     }
-
-
 }
