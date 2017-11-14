@@ -2,45 +2,64 @@ package com.example.themoviedb.movielist;
 
 import android.support.annotation.Nullable;
 
-import com.example.themoviedb.data.Movie;
+import com.example.themoviedb.data.model.FeedItem;
+import com.google.auto.value.AutoValue;
 
 import java.util.List;
 
-public final class MovieListViewState {
+@AutoValue
+public abstract class MovieListViewState {
 
-    private final boolean loadingMovies; // Show the loading indicator instead of recyclerView
     @Nullable
-    private final Throwable moviesError; // Show an error view if != null
-    private final List<Movie> data;   // The items displayed in the recyclerview
-    private final boolean loadingPullToRefresh; // Shows the pull-to-refresh indicator
+    public abstract Boolean loadingFirstPage();
+
     @Nullable
-    private final Throwable pullToRefreshError; // if != null, shows error toast that pull-to-refresh failed
+    public abstract Throwable firstPageError();
 
-    public MovieListViewState(boolean loadingMovies, @Nullable Throwable moviesError, List<Movie> data, boolean loadingPullToRefresh, @Nullable Throwable pullToRefreshError) {
-        this.loadingMovies = loadingMovies;
-        this.moviesError = moviesError;
-        this.data = data;
-        this.loadingPullToRefresh = loadingPullToRefresh;
-        this.pullToRefreshError = pullToRefreshError;
+    @Nullable
+    public abstract List<FeedItem> data();
+
+    @Nullable
+    public abstract Boolean loadingNextPage();
+
+    @Nullable
+    public abstract Throwable nextPageError();
+
+    @Nullable
+    public abstract Boolean loadingPullToRefresh();
+
+    @Nullable
+    public abstract Throwable pullToRefreshError();
+
+    @Nullable
+    public static Builder builder() {
+        return new AutoValue_MovieListViewState.Builder();
     }
 
-    public boolean isLoadingMovies() {
-        return loadingMovies;
+    public boolean isLoading() {
+        return loadingFirstPage() || loadingNextPage() || loadingPullToRefresh();
     }
 
-    public Throwable getMoviesError() {
-        return moviesError;
+    public Throwable getError() {
+        return firstPageError() != null ? firstPageError() : nextPageError() != null ? nextPageError() : pullToRefreshError();
     }
 
-    public List<Movie> getData() {
-        return data;
-    }
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder loadingFirstPage(Boolean value);
 
-    public boolean isLoadingPullToRefresh() {
-        return loadingPullToRefresh;
-    }
+        public abstract Builder firstPageError(Throwable value);
 
-    public Throwable getPullToRefreshError() {
-        return pullToRefreshError;
+        public abstract Builder data(List<FeedItem> value);
+
+        public abstract Builder loadingNextPage(Boolean value);
+
+        public abstract Builder nextPageError(Throwable value);
+
+        public abstract Builder loadingPullToRefresh(Boolean value);
+
+        public abstract Builder pullToRefreshError(Throwable value);
+
+        public abstract MovieListViewState build();
     }
 }

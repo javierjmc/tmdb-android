@@ -1,12 +1,14 @@
 package com.example.themoviedb;
 
-import android.app.Application;
+import com.example.themoviedb.dagger2.DaggerTheMovieDbAppComponent;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
+import dagger.android.AndroidInjector;
+import dagger.android.support.DaggerApplication;
 import timber.log.Timber;
 
-public class MovieDbApp extends Application {
+public class TheMovieDbApp extends DaggerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
@@ -17,5 +19,10 @@ public class MovieDbApp extends Application {
         } else {
             //Plant CrashReportingTree, Fabric/Crashlytics, Firebase etc...
         }
+    }
+
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        return DaggerTheMovieDbAppComponent.builder().create(this);
     }
 }

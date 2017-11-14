@@ -4,18 +4,55 @@ android {
     compileSdkVersion vers.compileSdk
     buildToolsVersion vers.buildTools
 
+    final BASE_APPLICATION_ID = 'com.example.themoviedb'
+
     defaultConfig {
-        applicationId "com.example.themoviedb"
+        applicationId BASE_APPLICATION_ID
         minSdkVersion vers.minSdk
         targetSdkVersion vers.targetSdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    flavorDimensions "themoviedb"
+
+    productFlavors {
+        // The production flavored app uses the production api
+        production {
+            dimension "themoviedb"
+            applicationId BASE_APPLICATION_ID
+            testApplicationId applicationId + '.test'
+
+            buildConfigField 'String', 'SERVER_URL', THEMOVIEDB_ENDPOINT
+            buildConfigField 'String', 'SERVER_API_KEY', THEMOVIEDB_API_KEY
+        }
+
+        // The staging flavored app uses the staging api
+        staging {
+            dimension "themoviedb"
+            applicationId BASE_APPLICATION_ID + ".staging"
+            testApplicationId applicationId + '.test'
+
+            buildConfigField 'String', 'SERVER_URL', THEMOVIEDB_ENDPOINT
+            buildConfigField 'String', 'SERVER_API_KEY', THEMOVIEDB_API_KEY
+        }
+    }
+
     buildTypes {
+
+        // The Debug builds are used for development and local testing
+        debug {
+            minifyEnabled false
+            debuggable true
+            applicationIdSuffix ".debug"
+        }
+
+        // The Release builds are used for publishing to play store
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.release
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
@@ -49,14 +86,46 @@ dependencies {
     // A logger with a small, extensible API which provides utility on top of Android's normal Log class.
     // See: https://github.com/JakeWharton/timber
     implementation "com.jakewharton.timber:timber:${vers.timber}"
+    implementation "com.arcao:slf4j-timber:${vers.slf4j}"
 
     // A collection of source code generators for Java.
     // See: https://github.com/google/auto
-    provided 'com.google.auto.value:auto-value:1.5.2' // needed for Android Studio
-    annotationProcessor 'com.google.auto.value:auto-value:1.5.2'
-    //implementation "com.google.auto.value:auto-value:1.5.2"
+    provided "com.google.auto.value:auto-value:${vers.autovalue}" // needed for Android Studio
+    annotationProcessor "com.google.auto.value:auto-value:${vers.autovalue}"
+
+    // A fast dependency injector for Android and Java.
+    // See: https://github.com/google/dagger
+    implementation "com.google.dagger:dagger:${vers.dagger}"
+    implementation "com.google.dagger:dagger-android:${vers.dagger}"
+    implementation "com.google.dagger:dagger-android-support:${vers.dagger}"
+    provided 'javax.annotation:jsr250-api:1.0'
+    annotationProcessor "com.google.dagger:dagger-compiler:${vers.dagger}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${vers.dagger}"
+
+    // A type-safe HTTP client for Android and Java
+    // See: https://github.com/square/retrofit
+    implementation "com.squareup.retrofit2:retrofit:${vers.retrofit}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${vers.retrofit}"
+    implementation "com.squareup.retrofit2:converter-scalars:${vers.retrofit}"
+    implementation "com.squareup.retrofit2:converter-moshi:${vers.retrofit}"
+
+    // AutoValue: Moshi Extension
+    // See: https://github.com/rharter/auto-value-moshi
+    annotationProcessor 'com.ryanharter.auto.value:auto-value-moshi:0.4.4'
+    provided 'com.ryanharter.auto.value:auto-value-moshi-annotations:0.4.4'
+
+    // OkHttp: https://github.com/square/okhttp
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+    // An image loading and caching library for Android focused on smooth scrolling
+    // See: https://github.com/bumptech/glide
+    implementation "com.github.bumptech.glide:glide:${vers.glide}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${vers.glide}"
 
     testImplementation "junit:junit:${testvers.junit}"
+    testImplementation "com.squareup.okhttp3:mockwebserver:${vers.okhttp}"
+    testImplementation "org.mockito:mockito-core:${testvers.mockito}"
+    testImplementation "org.mockito:mockito-android:${testvers.mockito}"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

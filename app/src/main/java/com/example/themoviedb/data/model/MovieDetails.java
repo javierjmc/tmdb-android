@@ -1,39 +1,55 @@
-package com.example.themoviedb.data;
+package com.example.themoviedb.data.model;
 
 import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
+import com.squareup.moshi.Json;
 
 import org.joda.time.DateTime;
 
 import java.util.List;
 
 @AutoValue
-public abstract class Movie {
+public abstract class MovieDetails implements FeedItem {
+
     public abstract long id();
 
+    @Json(name = "vote_average")
     public abstract float voteAverage();
 
+    @Json(name = "vote_count")
     public abstract long voteCount();
 
     public abstract String title();
 
-    @Nullable public abstract String posterPath();
+    @Nullable
+    @Json(name = "poster_path")
+    public abstract String posterPath();
 
-    @Nullable public abstract String originalLanguage();
+    @Nullable
+    @Json(name = "original_language")
+    public abstract String originalLanguage();
 
-    @Nullable public abstract String originalTitle();
+    @Nullable
+    @Json(name = "original_title")
+    public abstract String originalTitle();
 
-    public abstract List<Long> genres();
+    @Json(name = "genre_ids")
+    public abstract List<Genre> genreIds();
 
     public abstract boolean adult();
 
     public abstract String overview();
 
+    @Json(name = "release_date")
     public abstract DateTime releaseDate();
 
+    public abstract int runtime();
+
+    public abstract String tagline();
+
     public static Builder builder() {
-        return new AutoValue_Movie.Builder();
+        return new AutoValue_MovieDetails.Builder();
     }
 
     @AutoValue.Builder
@@ -52,7 +68,7 @@ public abstract class Movie {
 
         public abstract Builder originalTitle(String value);
 
-        public abstract Builder genres(List<Long> value);
+        public abstract Builder genreIds(List<Genre> value);
 
         public abstract Builder adult(boolean value);
 
@@ -60,8 +76,10 @@ public abstract class Movie {
 
         public abstract Builder releaseDate(DateTime value);
 
-        public abstract Movie build();
+        public abstract Builder runtime(int value);
+
+        public abstract Builder tagline(String value);
+
+        public abstract MovieDetails build();
     }
 }
-
-

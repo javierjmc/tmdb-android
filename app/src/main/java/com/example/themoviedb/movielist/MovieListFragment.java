@@ -12,6 +12,9 @@ import com.example.themoviedb.BaseFragment;
 import com.example.themoviedb.R;
 import com.example.themoviedb.movielist.list.MovieListAdapter;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+
 import butterknife.BindView;
 import io.reactivex.Observable;
 import timber.log.Timber;
@@ -23,6 +26,9 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
     @BindView(R.id.progress)
     ProgressBar mProgressBar;
 
+    @Inject
+    Provider<MovieListPresenter> mPresenterProvider;
+
     private MovieListAdapter mMovieListAdapter = new MovieListAdapter();
 
     @Override
@@ -33,7 +39,7 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
     @NonNull
     @Override
     public MovieListPresenter createPresenter() {
-        return new MovieListPresenter();
+        return mPresenterProvider.get();
     }
 
     @Override
@@ -43,7 +49,7 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
     }
 
     @Override
-    public Observable<Boolean> loadMoviesIntent() {
+    public Observable<Boolean> loadMoviesFirstPageIntent() {
         return Observable.just(true).doOnComplete(() -> Timber.d("loadMovies completed"));
     }
 
@@ -54,11 +60,10 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
 
     @Override
     public void render(MovieListViewState viewState) {
-        mRecyclerView.setAdapter(mMovieListAdapter);
-        mMovieListAdapter.setMovieList(viewState.getData());
-        mProgressBar.setVisibility(viewState.isLoadingMovies() || viewState.isLoadingPullToRefresh() ? View.VISIBLE : View.GONE);
+        mMovieListAdapter.setMovieList(viewState.data());
+        mProgressBar.setVisibility(viewState.isLoading() ? View.VISIBLE : View.GONE);
 
-        final Throwable error = viewState.getMoviesError() != null ? viewState.getMoviesError() : viewState.getPullToRefreshError();
+        final Throwable error = viewState.getError();
 
         if (error != null) {
             Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();

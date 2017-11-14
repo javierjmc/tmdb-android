@@ -1,5 +1,6 @@
 package com.example.themoviedb;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,10 +13,17 @@ import com.hannesdorfmann.mosby3.mvi.MviPresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
 
 import butterknife.ButterKnife;
+import dagger.android.support.AndroidSupportInjection;
 
 public abstract class BaseFragment<V extends MvpView, P extends MviPresenter<V, ?>> extends MviFragment {
 
     public abstract int layoutRes();
+
+    @Override
+    public void onAttach(Context context) {
+        AndroidSupportInjection.inject(this);
+        super.onAttach(context);
+    }
 
     @Nullable
     @Override
