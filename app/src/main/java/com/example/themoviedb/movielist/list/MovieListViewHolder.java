@@ -1,6 +1,7 @@
 package com.example.themoviedb.movielist.list;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import com.example.themoviedb.R;
 import com.example.themoviedb.data.model.Movie;
 import com.example.themoviedb.utils.GlideApp;
 
+import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +31,8 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.overview)
     TextView mOverview;
 
-    @BindString(R.string.movie_image_url_endppoint)
-    String mImageUrlBase;
+    @BindString(R.string.movie_image_url_endppoint) String mImageUrlBase;
+    @BindDrawable(R.drawable.ic_movie) Drawable mMovieIcon;
 
     private Context mContext;
 
@@ -51,6 +53,7 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
         GlideApp
             .with(mContext)
             .load(mImageUrlBase.concat(movie.posterPath()))
+            .placeholder(mMovieIcon)
             .centerCrop()
             .into(mPoster);
     }
