@@ -20,6 +20,9 @@ public abstract class MovieListViewState {
     public abstract List<FeedItem> data();
 
     @Nullable
+    public abstract Integer page();
+
+    @Nullable
     public abstract Boolean loadingNextPage();
 
     @Nullable
@@ -36,6 +39,8 @@ public abstract class MovieListViewState {
         return new AutoValue_MovieListViewState.Builder();
     }
 
+    public abstract Builder toBuilder();
+
     public boolean isLoading() {
         return loadingFirstPage() != null ? loadingFirstPage() : loadingNextPage() != null ? loadingNextPage() : loadingPullToRefresh() != null ? loadingPullToRefresh() : false;
     }
@@ -51,6 +56,8 @@ public abstract class MovieListViewState {
         public abstract Builder firstPageError(Throwable value);
 
         public abstract Builder data(List<FeedItem> value);
+
+        public abstract Builder page(Integer value);
 
         public abstract Builder loadingNextPage(Boolean value);
 

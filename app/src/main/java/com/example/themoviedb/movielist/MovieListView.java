@@ -7,11 +7,18 @@ import io.reactivex.Observable;
 public interface MovieListView extends MvpView {
 
     /**
-     * The intent to load movies
+     * The intent to load movies' first page
      *
      * @return The value of the emitted item (boolean) can be ignored. true or false has no different meaning.
      */
     Observable<Boolean> loadMoviesFirstPageIntent();
+
+    /**
+     * The intent to load movies' next page
+     *
+     * @return The value of the next page to be loaded.
+     */
+    Observable<Integer> loadMoviesNextPageIntent();
 
     /**
      * The intent to load movie details

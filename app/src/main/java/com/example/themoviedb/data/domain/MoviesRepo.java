@@ -1,5 +1,7 @@
 package com.example.themoviedb.data.domain;
 
+import android.util.Pair;
+
 import com.example.themoviedb.data.model.FeedItem;
 
 import java.util.List;
@@ -11,6 +13,6 @@ import io.reactivex.Observable;
  */
 public interface MoviesRepo {
 
-    Observable<List<FeedItem>> getMostPopularMovies(final int page);
+    Observable<Pair<Integer, List<FeedItem>>> getMostPopularMovies(final int page);
 
 }
