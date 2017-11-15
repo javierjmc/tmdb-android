@@ -17,7 +17,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 import timber.log.Timber;
 
 /**
- * Provides methods needed to instantiate network-related objects.
+ * Provides objects needed to do network operations: {@link Retrofit}, {@link HttpUrl}, {@link Converter.Factory}, {@link HttpLoggingInterceptor.Level}
  */
 @Module(
     includes = {

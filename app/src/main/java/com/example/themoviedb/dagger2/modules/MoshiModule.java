@@ -9,7 +9,9 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
-
+/**
+ * Provides {@link Moshi} and {@link MoshiConverterFactory} used for json parsing by {@link retrofit2.Retrofit} on the {@link ApiModule}.
+ * */
 @Module
 public class MoshiModule {
     public static final Moshi MOSHI = new Moshi.Builder()

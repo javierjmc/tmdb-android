@@ -6,6 +6,9 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
 
+/**
+ * Provides the {@link TheMovieDbApi} interface.
+ */
 @Module
 public class RestServiceModule {
 

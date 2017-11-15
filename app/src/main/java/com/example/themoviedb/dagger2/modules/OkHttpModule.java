@@ -15,7 +15,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 /**
- * Provides instance of the OkHttpClient.
+ * Provides an instance of the {@link OkHttpClient}.
  */
 @Module
 public abstract class OkHttpModule {
