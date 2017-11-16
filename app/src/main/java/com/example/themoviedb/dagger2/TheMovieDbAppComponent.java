@@ -3,6 +3,7 @@ package com.example.themoviedb.dagger2;
 
 import com.example.themoviedb.TheMovieDbApp;
 import com.example.themoviedb.dagger2.modules.ApiModule;
+import com.example.themoviedb.dagger2.modules.PersistenceModule;
 import com.example.themoviedb.dagger2.modules.TheMovieDbActivitiesModule;
 import com.example.themoviedb.dagger2.modules.TheMovieDbAppModule;
 import com.example.themoviedb.dagger2.modules.TheMovieDbRepoBindsModule;
@@ -17,6 +18,7 @@ import dagger.android.AndroidInjector;
         TheMovieDbAppModule.class,
         TheMovieDbActivitiesModule.class,
         ApiModule.class,
+        PersistenceModule.class,
         TheMovieDbRepoBindsModule.class
     })
 public interface TheMovieDbAppComponent extends AndroidInjector<TheMovieDbApp> {
