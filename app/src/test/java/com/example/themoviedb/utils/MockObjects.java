@@ -1,5 +1,6 @@
-package com.example.themoviedb.movielist.utils;
+package com.example.themoviedb.utils;
 
+import com.example.themoviedb.data.domain.ApiResponseSchema;
 import com.example.themoviedb.data.model.FeedItem;
 import com.example.themoviedb.data.model.Movie;
 
@@ -10,6 +11,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MockObjects {
+
+    public static ApiResponseSchema<List<FeedItem>> getMockApiResponseForMovies() {
+
+        final ApiResponseSchema response = new ApiResponseSchema();
+        response.setPage(1);
+        response.setTotalResults(1);
+        response.setTotalPages(1);
+        response.setResults(getMockMovies());
+        return response;
+    }
+
 
     public static List<FeedItem> getMockMovies() {
         return Arrays.asList(

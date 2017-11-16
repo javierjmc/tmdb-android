@@ -50,4 +50,19 @@ public class ApiResponseSchema<T> {
             '}';
     }
 
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public void setTotalResults(long totalResults) {
+        this.totalResults = totalResults;
+    }
+
+    public void setTotalPages(long totalPages) {
+        this.totalPages = totalPages;
+    }
+
+    public void setResults(T results) {
+        this.results = results;
+    }
 }

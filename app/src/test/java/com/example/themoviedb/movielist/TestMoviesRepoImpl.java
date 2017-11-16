@@ -1,0 +1,35 @@
+package com.example.themoviedb.movielist;
+
+import com.example.themoviedb.data.domain.ApiSchedulers;
+import com.example.themoviedb.data.domain.MoviesDataRepo;
+import com.example.themoviedb.data.domain.MoviesRepo;
+import com.example.themoviedb.data.domain.TestTheMovieDbApi;
+import com.example.themoviedb.data.model.FeedItem;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import io.reactivex.Observable;
+
+public class TestMoviesRepoImpl implements MoviesRepo {
+
+    private final MoviesDataRepo moviesDataRepo;
+    private final TestTheMovieDbApi theMovieDbApi;
+    private final ApiSchedulers apiSchedulers;
+
+    @Inject
+    public TestMoviesRepoImpl(final MoviesDataRepo moviesDataRepo, final TestTheMovieDbApi theMovieDbApi, final ApiSchedulers apiSchedulers) {
+        this.moviesDataRepo = moviesDataRepo;
+        this.theMovieDbApi = theMovieDbApi;
+        this.apiSchedulers = apiSchedulers;
+    }
+
+    @Override
+    public Observable<List<FeedItem>> getMostPopularMovies(final int page) {
+        return theMovieDbApi.getMovies(null, page, null, null)
+            .map(response -> response.getResults())
+            .toObservable()
+            .compose(apiSchedulers.forObservable());
+    }
+}
