@@ -2,7 +2,6 @@ package com.example.themoviedb.utils;
 
 import com.example.themoviedb.data.domain.ApiResponseSchema;
 import com.example.themoviedb.data.model.FeedItem;
-import com.example.themoviedb.data.model.Movie;
 
 import org.joda.time.DateTime;
 
@@ -72,7 +71,7 @@ public class MockObjects {
                     add(2L);
                 }})
                 .adult(false)
-                .overview("Movie2's overview")
+                .overview("Movie's overview")
                 .releaseDate(DateTime.now())
                 .build(),
 
