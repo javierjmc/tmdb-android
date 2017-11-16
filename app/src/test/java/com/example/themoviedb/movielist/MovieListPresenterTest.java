@@ -22,7 +22,6 @@ import com.example.themoviedb.data.domain.ApiSchedulers;
 import com.example.themoviedb.data.domain.MoviesRepo;
 import com.example.themoviedb.data.domain.TheMovieDbApi;
 import com.example.themoviedb.data.domain.moshi.JodaTimeMoshiAdapter;
-import com.example.themoviedb.data.domain.moshi.MoshiAdapterFactory;
 import com.example.themoviedb.data.model.FeedItem;
 import com.example.themoviedb.data.model.Genre;
 import com.example.themoviedb.data.model.Movie;

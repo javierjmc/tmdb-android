@@ -1,29 +1,41 @@
-package com.example.themoviedb.movielist
+package com.example.themoviedb.movielist;
 
-import com.example.themoviedb.data.db.daos.GenreDao
-import com.example.themoviedb.data.db.daos.MovieDao
-import com.example.themoviedb.data.domain.MoviesDataRepo
-import com.example.themoviedb.data.model.Movie
+import com.example.themoviedb.data.db.daos.GenreDao;
+import com.example.themoviedb.data.db.daos.MovieDao;
+import com.example.themoviedb.data.domain.MoviesDataRepo;
+import com.example.themoviedb.data.model.Movie;
 
-import javax.inject.Inject
+import java.util.List;
 
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
+import javax.inject.Inject;
 
-class MoviesDataRepoImpl @Inject
-constructor(private val movieDao: MovieDao, private val genreDao: GenreDao) : MoviesDataRepo {
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
-    override fun getMostPopularMoviesLocal(): Observable<List<Movie>> {
-        return movieDao.movies
-                .toObservable()
-                .doOnNext { movies -> Timber.d("Dispatching %d movies from DB...", movies.size) }
+public class MoviesDataRepoImpl implements MoviesDataRepo {
+
+    private final MovieDao movieDao;
+    private final GenreDao genreDao;
+
+    @Inject
+    public MoviesDataRepoImpl(final MovieDao movieDao, final GenreDao genreDao) {
+        this.movieDao = movieDao;
+        this.genreDao = genreDao;
     }
 
-    override fun storeMoviesLocal(movies: List<Movie>) {
-        Observable.fromCallable { movieDao.insertAll(movies) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe { t -> Timber.d("Inserted %d movies from API in DB...", movies.size) }
+    @Override
+    public Observable<List<Movie>> getMostPopularMoviesLocal() {
+        return movieDao.getMovies()
+            .toObservable()
+            .doOnNext(movies -> Timber.d("Dispatching %d movies from DB...", movies.size()));
+    }
+
+    @Override
+    public void storeMoviesLocal(List<Movie> movies) {
+        Observable.fromCallable(() -> movieDao.insertAll(movies))
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe(t -> Timber.d("Inserted %d movies from API in DB...", movies.size()));
     }
 }
