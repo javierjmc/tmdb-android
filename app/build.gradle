@@ -146,7 +146,6 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:${vers.room}"
     implementation "android.arch.persistence.room:rxjava2:${vers.room}"
 
-
     testImplementation "junit:junit:${testvers.junit}"
     testImplementation "com.squareup.okhttp3:mockwebserver:${vers.okhttp}"
     testImplementation "org.mockito:mockito-core:${testvers.mockito}"
@@ -154,6 +153,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     androidTestImplementation "android.arch.persistence.room:testing:${vers.room}"
+    androidTestImplementation "android.arch.core:core-testing:${vers.room}"
 
     // A debug bridge for Android applications
     // See: http://facebook.github.io/stetho/

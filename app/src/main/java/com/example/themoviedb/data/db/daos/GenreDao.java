@@ -51,6 +51,14 @@ public interface GenreDao {
     void insertAll(List<Genre> genres);
 
     /**
+     * Deletes a given {@link Genre} from the database
+     *
+     * @param genre Genre to be deleted
+     */
+    @Delete
+    void delete(Genre genre);
+
+    /**
      * Deletes the given {@link Genre}s from the database
      *
      * @param genres List of genres to be deleted

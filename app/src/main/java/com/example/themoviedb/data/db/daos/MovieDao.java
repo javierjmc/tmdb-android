@@ -52,6 +52,14 @@ public interface MovieDao {
     int deleteAll(List<Movie> movies);
 
     /**
+     * Deletes a given {@link Movie} from the database
+     *
+     * @param movie Movie to be deleted
+     */
+    @Delete
+    void delete(Movie movie);
+
+    /**
      * Updates the given {@link Movie}s in the database
      *
      * @param movie The movie to be updated
