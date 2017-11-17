@@ -2,6 +2,7 @@ package com.example.themoviedb.utils;
 
 import com.example.themoviedb.data.domain.ApiResponseSchema;
 import com.example.themoviedb.data.model.FeedItem;
+import com.example.themoviedb.data.model.Movie;
 
 import org.joda.time.DateTime;
 
@@ -32,9 +33,9 @@ public class MockObjects {
                 .posterPath(null)
                 .originalLanguage(null)
                 .originalTitle(null)
-                .genreIds(new ArrayList<Long>() {{
-                    add(1L);
-                    add(2L);
+                .genreIds(new ArrayList<Integer>() {{
+                    add(1);
+                    add(2);
                 }})
                 .adult(false)
                 .overview("Movie0's overview")
@@ -49,9 +50,9 @@ public class MockObjects {
                 .posterPath(null)
                 .originalLanguage(null)
                 .originalTitle(null)
-                .genreIds(new ArrayList<Long>() {{
-                    add(1L);
-                    add(2L);
+                .genreIds(new ArrayList<Integer>() {{
+                    add(1);
+                    add(2);
                 }})
                 .adult(false)
                 .overview("Movie1's overview")
@@ -66,9 +67,9 @@ public class MockObjects {
                 .posterPath(null)
                 .originalLanguage(null)
                 .originalTitle(null)
-                .genreIds(new ArrayList<Long>() {{
-                    add(1L);
-                    add(2L);
+                .genreIds(new ArrayList<Integer>() {{
+                    add(1);
+                    add(2);
                 }})
                 .adult(false)
                 .overview("Movie's overview")
@@ -83,9 +84,9 @@ public class MockObjects {
                 .posterPath(null)
                 .originalLanguage(null)
                 .originalTitle(null)
-                .genreIds(new ArrayList<Long>() {{
-                    add(1L);
-                    add(2L);
+                .genreIds(new ArrayList<Integer>() {{
+                    add(1);
+                    add(2);
                 }})
                 .adult(false)
                 .overview("Movie3's overview")

@@ -63,7 +63,7 @@ public class MovieListPresenterTest {
     // Json serializer for mock server
     private Moshi moshi = new Moshi.Builder()
         .add(new JodaTimeMoshiAdapter())
-        .add(MoshiAdapterFactory.create())
+//        .add(MoshiAdapterFactory.create())
         .build();
 
     private Type type = Types.newParameterizedType(ApiResponseSchema.class, List.class, Movie.class, FeedItem.class, ApiResponseSchema.class, Genre.class);
