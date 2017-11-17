@@ -46,9 +46,10 @@ public interface GenreDao {
      * Inserts a {@link List} of {@link Genre}s in the database
      *
      * @param genres List of genres to be inserted
+     * @return number of genres inserted
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<Genre> genres);
+    List<Long> insertAll(List<Genre> genres);
 
     /**
      * Deletes a given {@link Genre} from the database

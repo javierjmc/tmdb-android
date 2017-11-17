@@ -3,10 +3,20 @@ package com.example.themoviedb.movielist;
 import android.support.annotation.Nullable;
 
 import com.example.themoviedb.data.model.FeedItem;
+import com.example.themoviedb.data.model.Genre;
 
 import java.util.List;
 
 public class MovieListViewState {
+
+    @Nullable
+    public Boolean loadingGenres;
+
+    @Nullable
+    public Throwable loadingGenresError;
+
+    @Nullable
+    public List<Genre> genres;
 
     @Nullable
     public Boolean loadingFirstPage;
@@ -49,7 +59,10 @@ public class MovieListViewState {
         return new Builder(this);
     }
 
-    public MovieListViewState(Boolean loadingFirstPage, Throwable firstPageError, List<FeedItem> data, Integer page, Boolean loadingNextPage, Throwable nextPageError, Boolean loadingPullToRefresh, Throwable pullToRefreshError) {
+    public MovieListViewState(Boolean loadingGenres, Throwable loadingGenresError, List<Genre> genres, Boolean loadingFirstPage, Throwable firstPageError, List<FeedItem> data, Integer page, Boolean loadingNextPage, Throwable nextPageError, Boolean loadingPullToRefresh, Throwable pullToRefreshError) {
+        this.loadingGenres = loadingGenres;
+        this.loadingGenresError = loadingGenresError;
+        this.genres = genres;
         this.loadingFirstPage = loadingFirstPage;
         this.firstPageError = firstPageError;
         this.data = data;
@@ -58,6 +71,21 @@ public class MovieListViewState {
         this.nextPageError = nextPageError;
         this.loadingPullToRefresh = loadingPullToRefresh;
         this.pullToRefreshError = pullToRefreshError;
+    }
+
+    @Nullable
+    public Boolean loadingGenres() {
+        return loadingGenres;
+    }
+
+    @Nullable
+    public Throwable loadingGenresError() {
+        return loadingGenresError;
+    }
+
+    @Nullable
+    public List<Genre> genres() {
+        return genres;
     }
 
     @Nullable
@@ -103,7 +131,10 @@ public class MovieListViewState {
     @Override
     public String toString() {
         return "MovieListViewState{" +
-            "loadingFirstPage=" + loadingFirstPage +
+            "loadingGenres=" + loadingGenres +
+            ", loadingGenresError=" + loadingGenresError +
+            ", genres=" + genres +
+            ", loadingFirstPage=" + loadingFirstPage +
             ", firstPageError=" + firstPageError +
             ", data=" + data +
             ", page=" + page +
@@ -121,6 +152,11 @@ public class MovieListViewState {
 
         MovieListViewState that = (MovieListViewState) o;
 
+        if (loadingGenres != null ? !loadingGenres.equals(that.loadingGenres) : that.loadingGenres != null)
+            return false;
+        if (loadingGenresError != null ? !loadingGenresError.equals(that.loadingGenresError) : that.loadingGenresError != null)
+            return false;
+        if (genres != null ? !genres.equals(that.genres) : that.genres != null) return false;
         if (loadingFirstPage != null ? !loadingFirstPage.equals(that.loadingFirstPage) : that.loadingFirstPage != null)
             return false;
         if (firstPageError != null ? !firstPageError.equals(that.firstPageError) : that.firstPageError != null)
@@ -138,7 +174,10 @@ public class MovieListViewState {
 
     @Override
     public int hashCode() {
-        int result = loadingFirstPage != null ? loadingFirstPage.hashCode() : 0;
+        int result = loadingGenres != null ? loadingGenres.hashCode() : 0;
+        result = 31 * result + (loadingGenresError != null ? loadingGenresError.hashCode() : 0);
+        result = 31 * result + (genres != null ? genres.hashCode() : 0);
+        result = 31 * result + (loadingFirstPage != null ? loadingFirstPage.hashCode() : 0);
         result = 31 * result + (firstPageError != null ? firstPageError.hashCode() : 0);
         result = 31 * result + (data != null ? data.hashCode() : 0);
         result = 31 * result + (page != null ? page.hashCode() : 0);
@@ -150,6 +189,12 @@ public class MovieListViewState {
     }
 
     public static final class Builder {
+        @Nullable
+        public Boolean loadingGenres;
+        @Nullable
+        public Throwable loadingGenresError;
+        @Nullable
+        public List<Genre> genres;
         @Nullable
         public Boolean loadingFirstPage;
         @Nullable
@@ -171,6 +216,9 @@ public class MovieListViewState {
         }
 
         public Builder(MovieListViewState toCopyFrom) {
+            this.loadingGenres = toCopyFrom.loadingGenres();
+            this.loadingGenresError = toCopyFrom.loadingGenresError();
+            this.genres = toCopyFrom.genres();
             this.loadingFirstPage = toCopyFrom.loadingFirstPage();
             this.firstPageError = toCopyFrom.firstPageError();
             this.data = toCopyFrom.data();
@@ -179,6 +227,21 @@ public class MovieListViewState {
             this.nextPageError = toCopyFrom.nextPageError();
             this.loadingPullToRefresh = toCopyFrom.loadingPullToRefresh();
             this.pullToRefreshError = toCopyFrom.pullToRefreshError();
+        }
+
+        public Builder loadingGenres(Boolean value) {
+            this.loadingGenres = value;
+            return this;
+        }
+
+        public Builder loadingGenresError(Throwable value) {
+            this.loadingGenresError = value;
+            return this;
+        }
+
+        public Builder genres(List<Genre> value) {
+            this.genres = value;
+            return this;
         }
 
         public Builder loadingFirstPage(Boolean value) {
@@ -224,7 +287,7 @@ public class MovieListViewState {
         }
 
         public MovieListViewState build() {
-            return new MovieListViewState(loadingFirstPage, firstPageError, data, page, loadingNextPage, nextPageError, loadingPullToRefresh, pullToRefreshError);
+            return new MovieListViewState(loadingGenres, loadingGenresError, genres, loadingFirstPage, firstPageError, data, page, loadingNextPage, nextPageError, loadingPullToRefresh, pullToRefreshError);
         }
     }
 }

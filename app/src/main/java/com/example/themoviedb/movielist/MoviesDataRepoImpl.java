@@ -1,6 +1,5 @@
 package com.example.themoviedb.movielist;
 
-import com.example.themoviedb.data.db.daos.GenreDao;
 import com.example.themoviedb.data.db.daos.MovieDao;
 import com.example.themoviedb.data.domain.MoviesDataRepo;
 import com.example.themoviedb.data.model.Movie;
@@ -16,12 +15,10 @@ import timber.log.Timber;
 public class MoviesDataRepoImpl implements MoviesDataRepo {
 
     private final MovieDao movieDao;
-    private final GenreDao genreDao;
 
     @Inject
-    public MoviesDataRepoImpl(final MovieDao movieDao, final GenreDao genreDao) {
+    public MoviesDataRepoImpl(final MovieDao movieDao) {
         this.movieDao = movieDao;
-        this.genreDao = genreDao;
     }
 
     @Override

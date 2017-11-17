@@ -2,6 +2,7 @@ package com.example.themoviedb.movielist;
 
 import android.util.Pair;
 
+import com.example.themoviedb.data.domain.GenresRepo;
 import com.example.themoviedb.data.domain.MoviesRepo;
 import com.example.themoviedb.data.model.FeedItem;
 import com.example.themoviedb.data.model.PartialStateChanges;
@@ -23,14 +24,24 @@ import timber.log.Timber;
 public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieListViewState> {
 
     private final MoviesRepo moviesRepo;
+    private final GenresRepo genresRepo;
 
     @Inject
-    public MovieListPresenter(final MoviesRepo moviesRepo) {
+    public MovieListPresenter(final MoviesRepo moviesRepo, final GenresRepo genresRepo) {
         this.moviesRepo = moviesRepo;
+        this.genresRepo = genresRepo;
     }
 
     @Override
     protected void bindIntents() {
+
+        Observable<PartialStateChanges> loadGenres = intent(MovieListView::loadGenresIntent)
+            .doOnNext(ignored -> Timber.d("intent: loadGenresIntent"))
+            .flatMap(ignored -> genresRepo.getGenres()
+                .map(genres -> (PartialStateChanges) new PartialStateChanges.GenresLoaded(genres))
+                .startWith(new PartialStateChanges.GenresLoading())
+                .onErrorReturn(PartialStateChanges.GenresError::new)
+                .subscribeOn(Schedulers.io()));
 
         Observable<PartialStateChanges> loadMoviesFirstPage = intent(MovieListView::loadMoviesFirstPageIntent)
             .doOnNext(ignored -> Timber.d("intent: loadMoviesFirstPageIntent"))
@@ -49,7 +60,7 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
                 .subscribeOn(Schedulers.io()));
 
         Observable<PartialStateChanges> allIntentsObservable =
-            Observable.merge(loadMoviesFirstPage, loadMoviesNextPage)
+            Observable.merge(loadGenres, loadMoviesFirstPage, loadMoviesNextPage)
                 .observeOn(AndroidSchedulers.mainThread());
 
         MovieListViewState initialState = MovieListViewState.builder().page(1).loadingFirstPage(true).loadingNextPage(false).build();
@@ -59,6 +70,25 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
     }
 
     private MovieListViewState viewStateReducer(final MovieListViewState previousState, final PartialStateChanges partialChanges) {
+
+        if (partialChanges instanceof PartialStateChanges.GenresLoading) {
+            return previousState.toBuilder().loadingGenres(true).loadingGenresError(null).build();
+        }
+
+        if (partialChanges instanceof PartialStateChanges.GenresError) {
+            return previousState.toBuilder()
+                .loadingGenres(false)
+                .loadingGenresError(((PartialStateChanges.GenresError) partialChanges).getError())
+                .build();
+        }
+
+        if (partialChanges instanceof PartialStateChanges.GenresLoaded) {
+            return previousState.toBuilder()
+                .loadingGenres(false)
+                .loadingGenresError(null)
+                .genres(((PartialStateChanges.GenresLoaded) partialChanges).getData())
+                .build();
+        }
 
         if (partialChanges instanceof PartialStateChanges.FirstPageLoading) {
             return previousState.toBuilder().loadingFirstPage(true).loadingNextPage(false).page(1).firstPageError(null).build();

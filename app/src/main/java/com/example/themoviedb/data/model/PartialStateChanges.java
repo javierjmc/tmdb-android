@@ -24,6 +24,61 @@ import java.util.List;
 public interface PartialStateChanges {
 
     /**
+     * Indicates that the genres are loading
+     */
+    final class GenresLoading implements PartialStateChanges {
+
+        @Override
+        public String toString() {
+            return "GenresLoadingState{}";
+        }
+    }
+
+    /**
+     * Indicates that an error has occurred while loading genres
+     */
+    final class GenresError implements PartialStateChanges {
+        private final Throwable error;
+
+        public GenresError(Throwable error) {
+            this.error = error;
+        }
+
+        public Throwable getError() {
+            return error;
+        }
+
+        @Override
+        public String toString() {
+            return "GenresError{" +
+                "error=" + error +
+                '}';
+        }
+    }
+
+    /**
+     * Indicates that the genres has been loaded successfully
+     */
+    final class GenresLoaded implements PartialStateChanges {
+        private final List<Genre> genres;
+
+        public GenresLoaded(List<Genre> genres) {
+            this.genres = genres;
+        }
+
+        public List<Genre> getData() {
+            return genres;
+        }
+
+        @Override
+        public String toString() {
+            return "GenresLoaded{" +
+                "genres=" + genres +
+                '}';
+        }
+    }
+
+    /**
      * Indicates that the first page is loading
      */
     final class FirstPageLoading implements PartialStateChanges {
