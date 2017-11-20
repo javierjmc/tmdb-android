@@ -83,6 +83,7 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
     public void render(MovieListViewState viewState) {
         mPage = viewState.page();
         mMovieListAdapter.setItems(viewState.data());
+        mMovieListAdapter.setGenres(viewState.genres());
 
         boolean changed = mMovieListAdapter.setLoadingNextPage(viewState.loadingNextPage());
 

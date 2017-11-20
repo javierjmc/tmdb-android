@@ -6,7 +6,9 @@ import android.view.ViewGroup;
 
 import com.example.themoviedb.R;
 import com.example.themoviedb.data.model.FeedItem;
+import com.example.themoviedb.data.model.Genre;
 import com.example.themoviedb.data.model.Movie;
+import com.example.themoviedb.utils.GenreUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private List<FeedItem> feedItems = new ArrayList<>();
     private boolean isLoadingNextPage = false;
+    private List<Genre> genres = new ArrayList<>();
 
     public boolean isLoadingNextPage() {
         return isLoadingNextPage;
@@ -25,6 +28,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void setItems(List<FeedItem> movieList) {
         this.feedItems = movieList;
+        notifyDataSetChanged();
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
         notifyDataSetChanged();
     }
 
@@ -84,10 +92,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             return;
         }
 
-        final FeedItem item = feedItems.get(position);
-
         if (viewHolder instanceof MovieListViewHolder) {
-            ((MovieListViewHolder) viewHolder).bind((Movie) item);
+            final Movie movie = (Movie) feedItems.get(position);
+            final List<String> genresString = GenreUtil.filterGenres(genres, movie);
+
+            ((MovieListViewHolder) viewHolder).bind(movie, genresString);
         } else {
             throw new IllegalArgumentException("couldn't accept  ViewHolder " + viewHolder);
         }
