@@ -20,7 +20,7 @@ public class PersistenceModule {
     @Provides
     @ApplicationScope
     public TheMovieDbAppDatabase provideDataBase(@ApplicationScope Context context) {
-        return Room.databaseBuilder(context, TheMovieDbAppDatabase.class, "tmdbapp-db").build();
+        return Room.databaseBuilder(context, TheMovieDbAppDatabase.class, "tmdbapp-db").fallbackToDestructiveMigration().build();
     }
 
     @Provides

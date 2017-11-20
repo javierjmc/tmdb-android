@@ -13,7 +13,7 @@ import com.example.themoviedb.data.model.Movie;
 /**
  * Defines the {@link android.arch.persistence.room.Dao}s for the database.
  */
-@Database(entities = {Movie.class, Genre.class}, version = 1)
+@Database(entities = {Movie.class, Genre.class}, version = 2)
 @TypeConverters(Converters.class)
 public abstract class TheMovieDbAppDatabase extends RoomDatabase {
 
