@@ -26,6 +26,8 @@ public class Movie implements FeedItem {
 
     public String title;
 
+    public float popularity;
+
     @Nullable
     @Json(name = "poster_path")
     public String posterPath;
@@ -56,11 +58,12 @@ public class Movie implements FeedItem {
         return new Builder(this);
     }
 
-    public Movie(int id, float voteAverage, long voteCount, String title, String posterPath, String originalLanguage, String originalTitle, List<Integer> genreIds, boolean adult, String overview, DateTime releaseDate) {
+    public Movie(int id, float voteAverage, long voteCount, String title, float popularity, String posterPath, String originalLanguage, String originalTitle, List<Integer> genreIds, boolean adult, String overview, DateTime releaseDate) {
         this.id = id;
         this.voteAverage = voteAverage;
         this.voteCount = voteCount;
         this.title = title;
+        this.popularity = popularity;
         this.posterPath = posterPath;
         this.originalLanguage = originalLanguage;
         this.originalTitle = originalTitle;
@@ -84,6 +87,10 @@ public class Movie implements FeedItem {
 
     public String title() {
         return title;
+    }
+
+    public float popularity() {
+        return popularity;
     }
 
     @Nullable
@@ -124,6 +131,7 @@ public class Movie implements FeedItem {
             ", voteAverage=" + voteAverage +
             ", voteCount=" + voteCount +
             ", title='" + title + '\'' +
+            ", popularity='" + popularity + '\'' +
             ", posterPath='" + posterPath + '\'' +
             ", originalLanguage='" + originalLanguage + '\'' +
             ", originalTitle='" + originalTitle + '\'' +
@@ -144,6 +152,7 @@ public class Movie implements FeedItem {
         if (id != movie.id) return false;
         if (Float.compare(movie.voteAverage, voteAverage) != 0) return false;
         if (voteCount != movie.voteCount) return false;
+        if (Float.compare(movie.popularity, popularity) != 0) return false;
         if (adult != movie.adult) return false;
         if (title != null ? !title.equals(movie.title) : movie.title != null) return false;
         if (posterPath != null ? !posterPath.equals(movie.posterPath) : movie.posterPath != null)
@@ -161,10 +170,11 @@ public class Movie implements FeedItem {
 
     @Override
     public int hashCode() {
-        int result = id ^ (id >>> 32);
+        int result = id;
         result = 31 * result + (voteAverage != +0.0f ? Float.floatToIntBits(voteAverage) : 0);
         result = 31 * result + (int) (voteCount ^ (voteCount >>> 32));
         result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (popularity != +0.0f ? Float.floatToIntBits(popularity) : 0);
         result = 31 * result + (posterPath != null ? posterPath.hashCode() : 0);
         result = 31 * result + (originalLanguage != null ? originalLanguage.hashCode() : 0);
         result = 31 * result + (originalTitle != null ? originalTitle.hashCode() : 0);
@@ -180,6 +190,7 @@ public class Movie implements FeedItem {
         public float voteAverage;
         public long voteCount;
         public String title;
+        public float popularity;
         @Nullable
         public String posterPath;
         @Nullable
@@ -199,6 +210,7 @@ public class Movie implements FeedItem {
             this.voteAverage = toCopyFrom.voteAverage();
             this.voteCount = toCopyFrom.voteCount();
             this.title = toCopyFrom.title();
+            this.popularity = toCopyFrom.popularity();
             this.posterPath = toCopyFrom.posterPath();
             this.originalLanguage = toCopyFrom.originalLanguage();
             this.originalTitle = toCopyFrom.originalTitle();
@@ -225,6 +237,11 @@ public class Movie implements FeedItem {
 
         public Builder title(String value) {
             this.title = value;
+            return this;
+        }
+
+        public Builder popularity(float value) {
+            this.popularity = value;
             return this;
         }
 
@@ -264,7 +281,7 @@ public class Movie implements FeedItem {
         }
 
         public Movie build() {
-            return new Movie(id, voteAverage, voteCount, title, posterPath, originalLanguage, originalTitle, genreIds, adult, overview, releaseDate);
+            return new Movie(id, voteAverage, voteCount, title, popularity, posterPath, originalLanguage, originalTitle, genreIds, adult, overview, releaseDate);
         }
     }
 }

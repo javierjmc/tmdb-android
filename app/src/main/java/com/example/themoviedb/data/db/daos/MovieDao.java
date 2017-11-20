@@ -22,7 +22,7 @@ public interface MovieDao {
     /**
      * Gets all {@link Movie}s in the database
      */
-    @Query("SELECT * FROM movies")
+    @Query("SELECT * FROM movies ORDER BY movies.popularity DESC")
     Single<List<Movie>> getMovies();
 
     /**
