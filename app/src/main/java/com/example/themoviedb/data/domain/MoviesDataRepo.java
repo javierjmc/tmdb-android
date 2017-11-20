@@ -11,7 +11,7 @@ import io.reactivex.Observable;
  */
 public interface MoviesDataRepo {
 
-    Observable<List<Movie>> getMostPopularMoviesLocal();
+    Observable<List<Movie>> getMostPopularMoviesLocal(int page);
 
     void storeMoviesLocal(List<Movie> movies);
 

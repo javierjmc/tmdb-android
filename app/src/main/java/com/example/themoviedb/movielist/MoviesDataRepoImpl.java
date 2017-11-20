@@ -4,6 +4,7 @@ import com.example.themoviedb.data.db.daos.MovieDao;
 import com.example.themoviedb.data.domain.MoviesDataRepo;
 import com.example.themoviedb.data.model.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,6 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class MoviesDataRepoImpl implements MoviesDataRepo {
+    private static final int PAGE_LIMIT = 20;
 
     private final MovieDao movieDao;
 
@@ -22,8 +24,15 @@ public class MoviesDataRepoImpl implements MoviesDataRepo {
     }
 
     @Override
-    public Observable<List<Movie>> getMostPopularMoviesLocal() {
+    public Observable<List<Movie>> getMostPopularMoviesLocal(int page) {
         return movieDao.getMovies()
+            .map(movies -> {
+                if (movies.size() >= page * PAGE_LIMIT) {
+                    return movies.subList((page - 1) * PAGE_LIMIT, (PAGE_LIMIT * page) - 1);
+                } else {
+                    return new ArrayList<Movie>();
+                }
+            })
             .toObservable()
             .doOnNext(movies -> Timber.d("Dispatching %d movies from DB...", movies.size()));
     }

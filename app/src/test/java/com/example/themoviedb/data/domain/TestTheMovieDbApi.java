@@ -40,10 +40,10 @@ public interface TestTheMovieDbApi {
      *                   minimum: 0
      */
     @GET("/quote_200_popularmovies.json")
-    Single<ApiResponseSchema<List<Movie>>> getMovies(@Nullable @Query("sort_by") String sortBy,
-                                                     @Nullable @Query("page") int page,
-                                                     @Nullable @Query("with_genres") String withGenres,
-                                                     @Nullable @Query("vote_average.gte") String minRating);
+    Single<ApiMovieListResponseSchema<List<Movie>>> getMovies(@Nullable @Query("sort_by") String sortBy,
+                                                              @Nullable @Query("page") int page,
+                                                              @Nullable @Query("with_genres") String withGenres,
+                                                              @Nullable @Query("vote_average.gte") String minRating);
 
     /**
      * Get the primary information about a movie

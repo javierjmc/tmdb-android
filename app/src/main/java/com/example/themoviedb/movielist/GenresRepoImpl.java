@@ -1,5 +1,6 @@
 package com.example.themoviedb.movielist;
 
+import com.example.themoviedb.data.domain.ApiGenresResponseSchema;
 import com.example.themoviedb.data.domain.ApiSchedulers;
 import com.example.themoviedb.data.domain.GenresDataRepo;
 import com.example.themoviedb.data.domain.GenresRepo;
@@ -30,7 +31,7 @@ public class GenresRepoImpl implements GenresRepo {
     @Override
     public Observable<List<Genre>> getGenres() {
         return theMovieDbApi.getGenres()
-            .map(responseSchema -> responseSchema.getGenres())
+            .map(ApiGenresResponseSchema::getGenres)
             .toObservable()
             .doOnNext(genres -> {
                 Timber.d("Dispatching %d genres from API...", genres.size());
