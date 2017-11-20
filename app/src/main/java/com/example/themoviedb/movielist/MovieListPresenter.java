@@ -5,10 +5,12 @@ import android.util.Pair;
 import com.example.themoviedb.data.domain.GenresRepo;
 import com.example.themoviedb.data.domain.MoviesRepo;
 import com.example.themoviedb.data.model.FeedItem;
+import com.example.themoviedb.data.model.Movie;
 import com.example.themoviedb.data.model.PartialStateChanges;
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,6 +27,8 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
 
     private final MoviesRepo moviesRepo;
     private final GenresRepo genresRepo;
+
+    private LinkedHashMap<Integer, FeedItem> movies = new LinkedHashMap<>();
 
     @Inject
     public MovieListPresenter(final MoviesRepo moviesRepo, final GenresRepo genresRepo) {
@@ -122,9 +126,15 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
         }
 
         if (partialChanges instanceof PartialStateChanges.NextPageLoaded) {
-            final List<FeedItem> data = new ArrayList<>(previousState.data().size() + ((PartialStateChanges.NextPageLoaded) partialChanges).getData().size());
-            data.addAll(previousState.data());
-            data.addAll(((PartialStateChanges.NextPageLoaded) partialChanges).getData());
+            for (FeedItem feedItem : previousState.data()) {
+                movies.put(((Movie) feedItem).id(), feedItem);
+            }
+
+            for (FeedItem feedItem : ((PartialStateChanges.NextPageLoaded) partialChanges).getData()) {
+                movies.put(((Movie) feedItem).id(), feedItem);
+            }
+
+            final List<FeedItem> data = new ArrayList<>(movies.values());
 
             return previousState.toBuilder().page(((PartialStateChanges.NextPageLoaded) partialChanges).getPage()).loadingNextPage(false).nextPageError(null).data(data).build();
         }
