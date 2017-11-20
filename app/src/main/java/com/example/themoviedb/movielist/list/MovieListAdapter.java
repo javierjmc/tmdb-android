@@ -43,7 +43,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     /**
      * @return true if value has changed since last invocation
      */
-    public boolean setLoadingNextPage(boolean loadingNextPage) {
+    public boolean setLoadingNextPage(Boolean loadingNextPage) {
+        if (loadingNextPage == null)
+            return false;
+
         final boolean hasLoadingMoreChanged = loadingNextPage != isLoadingNextPage;
 
         final boolean notifyInserted = loadingNextPage && hasLoadingMoreChanged;

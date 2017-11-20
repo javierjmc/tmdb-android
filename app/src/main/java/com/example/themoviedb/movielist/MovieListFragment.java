@@ -30,7 +30,7 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
 
     private MovieListAdapter mMovieListAdapter = new MovieListAdapter();
 
-    private int mPage;
+    private Integer mPage;
 
     @Override
     public int layoutRes() {
@@ -87,7 +87,7 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
 
         boolean changed = mMovieListAdapter.setLoadingNextPage(viewState.loadingNextPage());
 
-        if (changed && viewState.loadingNextPage()) {
+        if (changed && viewState.loadingNextPage() != null && viewState.loadingNextPage()) {
             mRecyclerView.smoothScrollToPosition(mMovieListAdapter.getItemCount());
         }
 
