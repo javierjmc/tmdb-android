@@ -1,7 +1,8 @@
 package com.example.themoviedb.utils;
 
-import com.example.themoviedb.data.domain.ApiResponseSchema;
+import com.example.themoviedb.data.domain.ApiMovieListResponseSchema;
 import com.example.themoviedb.data.model.FeedItem;
+import com.example.themoviedb.data.model.Genre;
 import com.example.themoviedb.data.model.Movie;
 
 import org.joda.time.DateTime;
@@ -12,9 +13,9 @@ import java.util.List;
 
 public class MockObjects {
 
-    public static ApiResponseSchema<List<FeedItem>> getMockApiResponseForMovies() {
+    public static ApiMovieListResponseSchema<List<FeedItem>> getMockApiResponseForMovies() {
 
-        final ApiResponseSchema response = new ApiResponseSchema();
+        final ApiMovieListResponseSchema response = new ApiMovieListResponseSchema();
         response.setPage(1);
         response.setTotalResults(1);
         response.setTotalPages(1);
@@ -95,4 +96,10 @@ public class MockObjects {
         );
     }
 
+    public static List<Genre> getMockGenres() {
+        return Arrays.asList(
+            new Genre(0, "Genre 0"),
+            new Genre(1, "Genre 1"),
+            new Genre(2, "Genre 2"));
+    }
 }

@@ -76,18 +76,27 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
     private MovieListViewState viewStateReducer(final MovieListViewState previousState, final PartialStateChanges partialChanges) {
 
         if (partialChanges instanceof PartialStateChanges.GenresLoading) {
-            return previousState.toBuilder().loadingGenres(true).loadingGenresError(null).build();
+            return previousState.builder()
+                .page(previousState.page())
+                .loadingGenres(true)
+                .loadingGenresError(null)
+                .loadingNextPage(previousState.loadingNextPage())
+                .build();
         }
 
         if (partialChanges instanceof PartialStateChanges.GenresError) {
-            return previousState.toBuilder()
+            return previousState.builder()
+                .page(previousState.page())
+                .loadingNextPage(previousState.loadingNextPage())
                 .loadingGenres(false)
                 .loadingGenresError(((PartialStateChanges.GenresError) partialChanges).getError())
                 .build();
         }
 
         if (partialChanges instanceof PartialStateChanges.GenresLoaded) {
-            return previousState.toBuilder()
+            return previousState.builder()
+                .page(previousState.page())
+                .loadingNextPage(previousState.loadingNextPage())
                 .loadingGenres(false)
                 .loadingGenresError(null)
                 .genres(((PartialStateChanges.GenresLoaded) partialChanges).getData())
