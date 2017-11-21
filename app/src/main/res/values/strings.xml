@@ -4,4 +4,8 @@
   <!-- SCREEN: DISCOVER -->
   <string name="discover_popular_movies">Popular Movies</string>
 
+  <!-- SCREEN: DETAILS -->
+  <string name="details_overview">Overview</string>
+  <string name="details_tagline">Tagline</string>
+
 </resources>
