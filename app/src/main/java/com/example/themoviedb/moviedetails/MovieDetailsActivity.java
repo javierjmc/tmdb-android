@@ -1,12 +1,13 @@
-package com.example.themoviedb;
+package com.example.themoviedb.moviedetails;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.themoviedb.R;
 import com.example.themoviedb.movielist.MovieListFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MovieDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
