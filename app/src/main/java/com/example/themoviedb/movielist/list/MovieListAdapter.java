@@ -15,15 +15,29 @@ import java.util.List;
 
 public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int VIEW_TYPE_MOVIE = 0;
-    private static final int VIEW_TYPE_LOADING_NEXT_PAGE = 1;
+    public interface OnMovieItemClickListener {
+        void onMovieItemClick(Movie movie);
+    }
 
+    private static final int VIEW_TYPE_MOVIE = 0;
+
+    private static final int VIEW_TYPE_LOADING_NEXT_PAGE = 1;
     private List<FeedItem> feedItems = new ArrayList<>();
     private boolean isLoadingNextPage = false;
+    private OnMovieItemClickListener listener;
+
+    public void setFeedItemListener(OnMovieItemClickListener listener) {
+        this.listener = listener;
+    }
+
     private List<Genre> genres = new ArrayList<>();
 
     public boolean isLoadingNextPage() {
         return isLoadingNextPage;
+    }
+
+    private OnMovieItemClickListener getFeedItemListener() {
+        return listener;
     }
 
     public void setItems(List<FeedItem> movieList) {
@@ -99,7 +113,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             final Movie movie = (Movie) feedItems.get(position);
             final List<String> genresString = GenreUtil.filterGenres(genres, movie);
 
-            ((MovieListViewHolder) viewHolder).bind(movie, genresString);
+            ((MovieListViewHolder) viewHolder).bind(movie, genresString, getFeedItemListener());
         } else {
             throw new IllegalArgumentException("couldn't accept  ViewHolder " + viewHolder);
         }

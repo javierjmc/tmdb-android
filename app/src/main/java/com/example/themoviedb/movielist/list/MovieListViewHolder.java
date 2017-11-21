@@ -47,7 +47,7 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
         mContext = itemView.getContext();
     }
 
-    public void bind(Movie movie, List<String> genres) {
+    public void bind(Movie movie, List<String> genres, MovieListAdapter.OnMovieItemClickListener feedItemListener) {
         mTitle.setText(movie.title());
         mRating.setText(String.valueOf(movie.voteAverage()));
         mDate.setText(Integer.toString(movie.releaseDate().getYear()));
@@ -60,5 +60,7 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
             .placeholder(mMovieIcon)
             .centerCrop()
             .into(mPoster);
+
+        itemView.setOnClickListener(view -> feedItemListener.onMovieItemClick(movie));
     }
 }
