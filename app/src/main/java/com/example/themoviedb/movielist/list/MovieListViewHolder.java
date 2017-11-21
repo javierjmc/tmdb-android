@@ -11,6 +11,8 @@ import com.example.themoviedb.R;
 import com.example.themoviedb.data.model.Movie;
 import com.example.themoviedb.utils.GlideApp;
 
+import java.util.List;
+
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -31,8 +33,10 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.overview)
     TextView mOverview;
 
-    @BindString(R.string.movie_image_url_endppoint) String mImageUrlBase;
-    @BindDrawable(R.drawable.ic_movie) Drawable mMovieIcon;
+    @BindString(R.string.movie_image_url_endppoint)
+    String mImageUrlBase;
+    @BindDrawable(R.drawable.ic_movie)
+    Drawable mMovieIcon;
 
     private Context mContext;
 
@@ -43,11 +47,11 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
         mContext = itemView.getContext();
     }
 
-    public void bind(Movie movie) {
+    public void bind(Movie movie, List<String> genres, MovieListAdapter.OnMovieItemClickListener feedItemListener) {
         mTitle.setText(movie.title());
         mRating.setText(String.valueOf(movie.voteAverage()));
         mDate.setText(Integer.toString(movie.releaseDate().getYear()));
-        mGenres.setText(movie.genreIds().toString());
+        mGenres.setText(genres.toString().replaceAll("[\\[.\\].\\s+]", " "));
         mOverview.setText(movie.overview());
 
         GlideApp
@@ -56,5 +60,7 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
             .placeholder(mMovieIcon)
             .centerCrop()
             .into(mPoster);
+
+        itemView.setOnClickListener(view -> feedItemListener.onMovieItemClick(movie));
     }
 }

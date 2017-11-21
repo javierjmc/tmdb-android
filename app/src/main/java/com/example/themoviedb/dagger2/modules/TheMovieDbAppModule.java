@@ -1,6 +1,7 @@
 package com.example.themoviedb.dagger2.modules;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.example.themoviedb.TheMovieDbApp;
 import com.example.themoviedb.dagger2.scopes.ApplicationScope;
@@ -25,5 +26,13 @@ public abstract class TheMovieDbAppModule {
 
     @Provides
     @ApplicationScope
-    static ApiSchedulers provideApiSchedulers(ApiSchedulersImpl impl) { return impl;}
+    static ApiSchedulers provideApiSchedulers(ApiSchedulersImpl impl) {
+        return impl;
+    }
+
+    @Provides
+    @ApplicationScope
+    static Context provideContext(Application app) {
+        return app.getBaseContext();
+    }
 }

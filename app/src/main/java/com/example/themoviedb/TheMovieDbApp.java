@@ -1,6 +1,7 @@
 package com.example.themoviedb;
 
 import com.example.themoviedb.dagger2.DaggerTheMovieDbAppComponent;
+import com.example.themoviedb.utils.DevTool;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -15,10 +16,13 @@ public class TheMovieDbApp extends DaggerApplication {
         JodaTimeAndroid.init(this);
 
         if (BuildConfig.DEBUG) {
+            DevTool.initForApp(this);
             Timber.plant(new Timber.DebugTree());
         } else {
             //Plant CrashReportingTree, Fabric/Crashlytics, Firebase etc...
         }
+
+        DevTool.plantDevTree();
     }
 
     @Override

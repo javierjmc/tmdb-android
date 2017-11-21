@@ -3,6 +3,7 @@ package com.example.themoviedb.dagger2.modules;
 import com.example.themoviedb.BuildConfig;
 import com.example.themoviedb.dagger2.qualifiers.ApiEndpoint;
 import com.example.themoviedb.dagger2.scopes.ApplicationScope;
+import com.example.themoviedb.utils.DevTool;
 
 import dagger.Module;
 import dagger.Provides;
@@ -56,6 +57,10 @@ public class ApiModule {
                                 final Converter.Factory converterFactory) {
 
         final OkHttpClient.Builder client = baseClient.newBuilder();
+
+        if (BuildConfig.DEBUG) {
+            DevTool.injectDev(client);
+        }
 
         if (logLevel != HttpLoggingInterceptor.Level.NONE) {
             client.addInterceptor(new HttpLoggingInterceptor(message -> Timber.v(message)).setLevel(logLevel));

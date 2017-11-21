@@ -2,7 +2,7 @@ package com.example.themoviedb.data.domain;
 
 import com.squareup.moshi.Json;
 
-public class ApiResponseSchema<T> {
+public class ApiMovieListResponseSchema<T> {
 
     /**
      * The page being loaded

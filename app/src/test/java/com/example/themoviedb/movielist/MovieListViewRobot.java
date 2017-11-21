@@ -38,7 +38,8 @@ public class MovieListViewRobot {
     private final MovieListPresenter presenter;
     private final PublishSubject<Boolean> loadMoviesFirstPageSubject = PublishSubject.create();
     private final PublishSubject<Long> loadDetailsSubject = PublishSubject.create();
-    private final PublishSubject<Boolean> loadNextPageSubject = PublishSubject.create();
+    private final PublishSubject<Integer> loadNextPageSubject = PublishSubject.create();
+    private final PublishSubject<Boolean> loadGenresSubject = PublishSubject.create();
     private final PublishSubject<Boolean> pullToRefreshSubject = PublishSubject.create();
     private final List<MovieListViewState> renderEvents = new CopyOnWriteArrayList<>();
     private final ReplaySubject<MovieListViewState> renderEventSubject = ReplaySubject.create();
@@ -47,6 +48,16 @@ public class MovieListViewRobot {
         @Override
         public Observable<Boolean> loadMoviesFirstPageIntent() {
             return loadMoviesFirstPageSubject;
+        }
+
+        @Override
+        public Observable<Integer> loadMoviesNextPageIntent() {
+            return loadNextPageSubject;
+        }
+
+        @Override
+        public Observable<Boolean> loadGenresIntent() {
+            return loadGenresSubject;
         }
 
         @Override
@@ -68,6 +79,10 @@ public class MovieListViewRobot {
 
     public void fireLoadMoviesFirstPageIntent() {
         loadMoviesFirstPageSubject.onNext(true);
+    }
+
+    public void fireLoadGenresIntent() {
+        loadGenresSubject.onNext(true);
     }
 
     /**

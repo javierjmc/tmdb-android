@@ -15,13 +15,13 @@ public class ApiSchedulersImpl implements ApiSchedulers {
     }
 
     @Override
-    public SingleTransformer forSingle() {
+    public <T> SingleTransformer<T, T> forSingle() {
         return upstream -> upstream.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public ObservableTransformer forObservable() {
+    public <T> ObservableTransformer<T, T> forObservable() {
         return upstream -> upstream.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread());
     }

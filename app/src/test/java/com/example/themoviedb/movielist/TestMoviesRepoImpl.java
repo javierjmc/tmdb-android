@@ -1,5 +1,7 @@
 package com.example.themoviedb.movielist;
 
+import android.util.Pair;
+
 import com.example.themoviedb.data.domain.ApiSchedulers;
 import com.example.themoviedb.data.domain.MoviesDataRepo;
 import com.example.themoviedb.data.domain.MoviesRepo;
@@ -26,10 +28,15 @@ public class TestMoviesRepoImpl implements MoviesRepo {
     }
 
     @Override
+    public Observable<Pair<Integer, List<FeedItem>>> getMostPopularMovies(int page) {
+        return null;
+    }
+
+    /*@Override
     public Observable<List<FeedItem>> getMostPopularMovies(final int page) {
         return theMovieDbApi.getMovies(null, page, null, null)
             .map(response -> response.getResults())
             .toObservable()
             .compose(apiSchedulers.forObservable());
-    }
+    }*/
 }

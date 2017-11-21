@@ -5,9 +5,9 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.SingleTransformer;
 
 public interface ApiSchedulers {
-    SingleTransformer forSingle();
+    <T> SingleTransformer<T, T> forSingle();
 
-    ObservableTransformer forObservable();
+    <T> ObservableTransformer<T, T> forObservable();
 
     CompletableTransformer forCompletable();
 }

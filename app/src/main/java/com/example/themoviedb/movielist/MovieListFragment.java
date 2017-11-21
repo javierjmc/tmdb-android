@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.themoviedb.BaseFragment;
 import com.example.themoviedb.R;
+import com.example.themoviedb.data.model.Movie;
 import com.example.themoviedb.movielist.list.MovieListAdapter;
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView;
 
@@ -20,7 +21,7 @@ import butterknife.BindView;
 import io.reactivex.Observable;
 import timber.log.Timber;
 
-public class MovieListFragment extends BaseFragment<MovieListView, MovieListPresenter> implements MovieListView {
+public class MovieListFragment extends BaseFragment<MovieListView, MovieListPresenter> implements MovieListView, MovieListAdapter.OnMovieItemClickListener {
 
     @BindView(R.id.movie_list)
     RecyclerView mRecyclerView;
@@ -30,7 +31,7 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
 
     private MovieListAdapter mMovieListAdapter = new MovieListAdapter();
 
-    private int mPage;
+    private Integer mPage;
 
     @Override
     public int layoutRes() {
@@ -52,6 +53,7 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView.setAdapter(mMovieListAdapter);
+        mMovieListAdapter.setFeedItemListener(this);
     }
 
     @Override
@@ -70,6 +72,11 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
     }
 
     @Override
+    public Observable<Boolean> loadGenresIntent() {
+        return Observable.just(true).doOnComplete(() -> Timber.d("loadGenres completed"));
+    }
+
+    @Override
     public Observable<Long> loadMovieDetailsIntent() {
         return null;
     }
@@ -78,10 +85,11 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
     public void render(MovieListViewState viewState) {
         mPage = viewState.page();
         mMovieListAdapter.setItems(viewState.data());
+        mMovieListAdapter.setGenres(viewState.genres());
 
         boolean changed = mMovieListAdapter.setLoadingNextPage(viewState.loadingNextPage());
 
-        if (changed && viewState.loadingNextPage()) {
+        if (changed && viewState.loadingNextPage() != null && viewState.loadingNextPage()) {
             mRecyclerView.smoothScrollToPosition(mMovieListAdapter.getItemCount());
         }
 
@@ -92,5 +100,10 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
         if (error != null) {
             Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onMovieItemClick(Movie movie) {
+
     }
 }

@@ -2,7 +2,6 @@ package com.example.themoviedb.data.domain;
 
 import android.support.annotation.Nullable;
 
-import com.example.themoviedb.data.model.Genre;
 import com.example.themoviedb.data.model.Movie;
 import com.example.themoviedb.data.model.MovieDetails;
 
@@ -39,10 +38,10 @@ public interface TheMovieDbApi {
      *                   minimum: 0
      */
     @GET("/3/discover/movie")
-    Single<ApiResponseSchema<List<Movie>>> getMovies(@Nullable @Query("sort_by") String sortBy,
-                                                     @Nullable @Query("page") int page,
-                                                     @Nullable @Query("with_genres") String withGenres,
-                                                     @Nullable @Query("vote_average.gte") String minRating);
+    Single<ApiMovieListResponseSchema<List<Movie>>> getMovies(@Nullable @Query("sort_by") String sortBy,
+                                                              @Nullable @Query("page") int page,
+                                                              @Nullable @Query("with_genres") String withGenres,
+                                                              @Nullable @Query("vote_average.gte") String minRating);
 
     /**
      * Get the primary information about a movie
@@ -90,5 +89,5 @@ public interface TheMovieDbApi {
      * See: https://developers.themoviedb.org/3/genres/get-movie-list
      */
     @GET("/3/genre/movie/list")
-    Single<List<Genre>> getGenres();
+    Single<ApiGenresResponseSchema> getGenres();
 }

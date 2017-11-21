@@ -6,25 +6,47 @@ import android.view.ViewGroup;
 
 import com.example.themoviedb.R;
 import com.example.themoviedb.data.model.FeedItem;
+import com.example.themoviedb.data.model.Genre;
 import com.example.themoviedb.data.model.Movie;
+import com.example.themoviedb.utils.GenreUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int VIEW_TYPE_MOVIE = 0;
-    private static final int VIEW_TYPE_LOADING_NEXT_PAGE = 1;
+    public interface OnMovieItemClickListener {
+        void onMovieItemClick(Movie movie);
+    }
 
+    private static final int VIEW_TYPE_MOVIE = 0;
+
+    private static final int VIEW_TYPE_LOADING_NEXT_PAGE = 1;
     private List<FeedItem> feedItems = new ArrayList<>();
     private boolean isLoadingNextPage = false;
+    private OnMovieItemClickListener listener;
+
+    public void setFeedItemListener(OnMovieItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    private List<Genre> genres = new ArrayList<>();
 
     public boolean isLoadingNextPage() {
         return isLoadingNextPage;
     }
 
+    private OnMovieItemClickListener getFeedItemListener() {
+        return listener;
+    }
+
     public void setItems(List<FeedItem> movieList) {
         this.feedItems = movieList;
+        notifyDataSetChanged();
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
         notifyDataSetChanged();
     }
 
@@ -35,7 +57,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     /**
      * @return true if value has changed since last invocation
      */
-    public boolean setLoadingNextPage(boolean loadingNextPage) {
+    public boolean setLoadingNextPage(Boolean loadingNextPage) {
+        if (loadingNextPage == null)
+            return false;
+
         final boolean hasLoadingMoreChanged = loadingNextPage != isLoadingNextPage;
 
         final boolean notifyInserted = loadingNextPage && hasLoadingMoreChanged;
@@ -84,10 +109,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             return;
         }
 
-        final FeedItem item = feedItems.get(position);
-
         if (viewHolder instanceof MovieListViewHolder) {
-            ((MovieListViewHolder) viewHolder).bind((Movie) item);
+            final Movie movie = (Movie) feedItems.get(position);
+            final List<String> genresString = GenreUtil.filterGenres(genres, movie);
+
+            ((MovieListViewHolder) viewHolder).bind(movie, genresString, getFeedItemListener());
         } else {
             throw new IllegalArgumentException("couldn't accept  ViewHolder " + viewHolder);
         }

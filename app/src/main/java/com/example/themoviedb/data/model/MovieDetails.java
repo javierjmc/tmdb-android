@@ -2,14 +2,12 @@ package com.example.themoviedb.data.model;
 
 import android.support.annotation.Nullable;
 
-import com.google.auto.value.AutoValue;
 import com.squareup.moshi.Json;
 
 import org.joda.time.DateTime;
 
 import java.util.List;
 
-@AutoValue
 public abstract class MovieDetails implements FeedItem {
 
     public abstract long id();
@@ -47,39 +45,4 @@ public abstract class MovieDetails implements FeedItem {
     public abstract int runtime();
 
     public abstract String tagline();
-
-    public static Builder builder() {
-        return new AutoValue_MovieDetails.Builder();
-    }
-
-    @AutoValue.Builder
-    public abstract static class Builder {
-        public abstract Builder id(long value);
-
-        public abstract Builder voteAverage(float value);
-
-        public abstract Builder voteCount(long value);
-
-        public abstract Builder title(String value);
-
-        public abstract Builder posterPath(String value);
-
-        public abstract Builder originalLanguage(String value);
-
-        public abstract Builder originalTitle(String value);
-
-        public abstract Builder genreIds(List<Genre> value);
-
-        public abstract Builder adult(boolean value);
-
-        public abstract Builder overview(String value);
-
-        public abstract Builder releaseDate(DateTime value);
-
-        public abstract Builder runtime(int value);
-
-        public abstract Builder tagline(String value);
-
-        public abstract MovieDetails build();
-    }
 }

@@ -21,6 +21,13 @@ public interface MovieListView extends MvpView {
     Observable<Integer> loadMoviesNextPageIntent();
 
     /**
+     * The intent to load movie genres
+     *
+     * @return The value of the emitted item (boolean) can be ignored. true or false has no different meaning.
+     */
+    Observable<Boolean> loadGenresIntent();
+
+    /**
      * The intent to load movie details
      *
      * @return Observable with the id of the movie tp be displayed.
