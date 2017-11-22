@@ -21,6 +21,13 @@ public interface MovieDetailsView extends MvpView {
     Observable<Integer> loadSimilarMoviesIntent();
 
     /**
+     * The intent to mark the movie as watched
+     *
+     * @return Boolean representing whether the movie has been watched or not
+     */
+    Observable<Boolean> markAsWatchedIntent();
+
+    /**
      * Renders the View
      *
      * @param viewState The current viewState state that should be displayed

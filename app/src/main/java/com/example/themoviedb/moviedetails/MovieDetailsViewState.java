@@ -3,7 +3,6 @@ package com.example.themoviedb.moviedetails;
 
 import android.support.annotation.Nullable;
 
-import com.example.themoviedb.data.model.FeedItem;
 import com.example.themoviedb.data.model.Movie;
 
 import java.util.List;

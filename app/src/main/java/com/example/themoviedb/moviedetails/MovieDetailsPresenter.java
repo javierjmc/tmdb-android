@@ -1,5 +1,6 @@
 package com.example.themoviedb.moviedetails;
 
+import com.example.themoviedb.data.domain.MoviesDataRepo;
 import com.example.themoviedb.data.domain.MoviesRepo;
 import com.example.themoviedb.data.model.PartialStateChanges;
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter;
@@ -17,10 +18,12 @@ import timber.log.Timber;
 public class MovieDetailsPresenter extends MviBasePresenter<MovieDetailsView, MovieDetailsViewState> {
 
     private final MoviesRepo moviesRepo;
+    private final MoviesDataRepo moviesDataRepo;
 
     @Inject
-    public MovieDetailsPresenter(final MoviesRepo moviesRepo) {
+    public MovieDetailsPresenter(final MoviesRepo moviesRepo, final MoviesDataRepo moviesDataRepo) {
         this.moviesRepo = moviesRepo;
+        this.moviesDataRepo = moviesDataRepo;
     }
 
     @Override
@@ -42,9 +45,17 @@ public class MovieDetailsPresenter extends MviBasePresenter<MovieDetailsView, Mo
                 .onErrorReturn(PartialStateChanges.SimilarMoviesError::new)
                 .subscribeOn(Schedulers.io()));
 
+        /*Observable<PartialStateChanges> markMovieAsWatched = intent(MovieDetailsView::markAsWatchedIntent)
+            .doOnNext(ignored -> Timber.d("intent: markAsWatchedIntent"))
+            .flatMap(watched -> moviesDataRepo.markMovieAsWatched(watched)
+                .map(movies -> (PartialStateChanges) new PartialStateChanges.SimilarMoviesLoaded(movies))
+                .startWith(new PartialStateChanges.SimilarMoviesLoading())
+                .onErrorReturn(PartialStateChanges.SimilarMoviesError::new)
+                .subscribeOn(Schedulers.io()));*/
+
 
         Observable<PartialStateChanges> allIntentsObservable =
-            Observable.merge(loadMovieDetails, loadSimilarMovies)
+            Observable.merge(loadMovieDetails, loadSimilarMovies/*, markMovieAsWatched*/)
                 .observeOn(AndroidSchedulers.mainThread());
 
         MovieDetailsViewState initialState = MovieDetailsViewState.builder().loadingMovieDetails(true).build();
