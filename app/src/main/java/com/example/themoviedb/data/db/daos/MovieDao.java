@@ -31,7 +31,7 @@ public interface MovieDao {
      * @param movie Movie to be inserted
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Movie movie);
+    long insert(Movie movie);
 
     /**
      * Inserts a {@link List} of {@link Movie}s in the database
@@ -60,7 +60,7 @@ public interface MovieDao {
     void delete(Movie movie);
 
     /**
-     * Updates the given {@link Movie}s in the database
+     * Updates the given {@link Movie} in the database
      *
      * @param movie The movie to be updated
      * @return number of movies updated

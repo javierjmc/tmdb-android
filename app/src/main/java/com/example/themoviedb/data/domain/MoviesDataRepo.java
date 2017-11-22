@@ -11,8 +11,24 @@ import io.reactivex.Observable;
  */
 public interface MoviesDataRepo {
 
+    /**
+     * Gets most popular {@link Movie}s from the local storage.
+     *
+     * @param page Page to fetch from the paginated.
+     */
     Observable<List<Movie>> getMostPopularMoviesLocal(int page);
 
+    /**
+     * Stores a {@link List} of {@link Movie}s locally.
+     *
+     * @param movies Movies to be stored.
+     */
     void storeMoviesLocal(List<Movie> movies);
 
+    /**
+     * Updates a {@link Movie} locally.
+     *
+     * @param movie Movie to be stored.
+     */
+    void updateMovieLocal(Movie movie);
 }

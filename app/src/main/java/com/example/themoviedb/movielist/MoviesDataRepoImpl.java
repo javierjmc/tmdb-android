@@ -44,4 +44,12 @@ public class MoviesDataRepoImpl implements MoviesDataRepo {
             .observeOn(Schedulers.io())
             .subscribe(t -> Timber.d("Inserted %d movies from API in DB...", movies.size()));
     }
+
+    @Override
+    public void updateMovieLocal(Movie movie) {
+        Observable.fromCallable(() -> movieDao.update(movie))
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe(t -> Timber.d("Inserted movie with id %d from API in DB...", movie.id()));
+    }
 }

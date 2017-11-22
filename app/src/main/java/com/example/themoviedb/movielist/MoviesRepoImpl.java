@@ -52,6 +52,37 @@ public class MoviesRepoImpl implements MoviesRepo {
             .compose(apiSchedulers.forObservable());
     }
 
+    @Override
+    public Observable<Movie> getMovieDetails(int movieId) {
+        return theMovieDbApi.getMovieDetails(movieId, null)
+            .toObservable()
+            .doOnNext(movie -> {
+                Timber.d("Dispatching movie with id %d from API...", movie.id());
+                moviesDataRepo.updateMovieLocal(movie);
+            })
+            .onErrorReturn(t -> {
+                Timber.e(t.getMessage());
+                return Movie.builder().build();
+            })
+            .compose(apiSchedulers.forObservable());
+    }
+
+    @Override
+    public Observable<List<Movie>> getSimilarMovies(int movieId) {
+        return theMovieDbApi.getSimilarMovies(movieId, null, 1)
+            .map(ApiMovieListResponseSchema::getResults)
+            .toObservable()
+            .doOnNext(movies -> {
+                Timber.d("Dispatching %d movies from API...", movies.size());
+                moviesDataRepo.storeMoviesLocal(movies);
+            })
+            .onErrorReturn(t -> {
+                Timber.e(t.getMessage());
+                return Collections.emptyList();
+            })
+            .compose(apiSchedulers.forObservable());
+    }
+
     private Observable<List<Movie>> getMoviesFromApi(final int page) {
         return theMovieDbApi.getMovies(null, page, null, null)
             .map(ApiMovieListResponseSchema::getResults)
