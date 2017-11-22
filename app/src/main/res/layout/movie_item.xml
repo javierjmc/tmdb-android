@@ -56,10 +56,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="7dp"
-    android:paddingEnd="5dp"
     android:drawablePadding="5dp"
     android:drawableStart="@drawable/ic_calendar"
     android:drawableTint="@android:color/white"
+    android:paddingEnd="5dp"
     android:textColor="@android:color/white"
     design:layout_constraintStart_toEndOf="@+id/poster"
     design:layout_constraintTop_toBottomOf="@+id/title"
@@ -95,5 +95,18 @@
     design:layout_constraintStart_toEndOf="@+id/poster"
     design:layout_constraintTop_toBottomOf="@+id/date"
     tools:text="In a small town in Maine, seven children known as The Losers Club come face to face with life problems, bullies and a monster that takes the shape of a clown called Pennywise." />
+
+  <ImageView
+    android:id="@+id/seen"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="8dp"
+    android:src="@drawable/ic_seen"
+    android:tint="@color/green"
+    android:visibility="gone"
+    tools:visibility="visible"
+    design:layout_constraintBottom_toBottomOf="parent"
+    design:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -32,6 +32,8 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
     TextView mGenres;
     @BindView(R.id.overview)
     TextView mOverview;
+    @BindView(R.id.seen)
+    ImageView mWatched;
 
     @BindString(R.string.movie_image_small_url_endppoint)
     String mImageUrlBase;
@@ -53,6 +55,11 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
         mDate.setText(Integer.toString(movie.releaseDate().getYear()));
         mGenres.setText(genres.toString().replaceAll("[\\[.\\].\\s+]", " "));
         mOverview.setText(movie.overview());
+
+        final Boolean watched = movie.watched();
+        if (watched != null) {
+            mWatched.setVisibility(watched ? View.VISIBLE : View.GONE);
+        }
 
         GlideApp
             .with(mContext)

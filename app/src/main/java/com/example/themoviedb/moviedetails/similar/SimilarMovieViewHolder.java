@@ -22,6 +22,8 @@ public class SimilarMovieViewHolder extends RecyclerView.ViewHolder {
     ImageView mPoster;
     @BindView(R.id.rating)
     TextView mRating;
+    @BindView(R.id.seen)
+    ImageView mWatched;
 
     @BindString(R.string.movie_image_small_url_endppoint)
     String mImageUrlBase;
@@ -38,6 +40,11 @@ public class SimilarMovieViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Movie movie, SimilarMoviesAdapter.OnSimilarMovieItemClickListener feedItemListener) {
         mRating.setText(String.valueOf(movie.voteAverage()));
+
+        final Boolean watched = movie.watched();
+        if (watched != null) {
+            mWatched.setVisibility(watched ? View.VISIBLE : View.GONE);
+        }
 
         GlideApp
             .with(mContext)
