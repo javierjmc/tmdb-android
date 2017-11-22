@@ -1,5 +1,6 @@
 package com.example.themoviedb.movielist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 import com.example.themoviedb.BaseFragment;
 import com.example.themoviedb.R;
 import com.example.themoviedb.data.model.Movie;
+import com.example.themoviedb.moviedetails.MovieDetailsActivity;
+import com.example.themoviedb.moviedetails.MovieDetailsFragment;
 import com.example.themoviedb.movielist.list.MovieListAdapter;
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView;
 
@@ -20,6 +23,9 @@ import javax.inject.Provider;
 import butterknife.BindView;
 import io.reactivex.Observable;
 import timber.log.Timber;
+
+import static com.example.themoviedb.moviedetails.MovieDetailsFragment.MOVIE_ID;
+import static com.example.themoviedb.moviedetails.MovieDetailsFragment.MOVIE_TITLE;
 
 public class MovieListFragment extends BaseFragment<MovieListView, MovieListPresenter> implements MovieListView, MovieListAdapter.OnMovieItemClickListener {
 
@@ -40,7 +46,7 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
 
     @Override
     public int toolbarTitle() {
-        return R.string.discover_popular_movies;
+        return R.string.discover_popular_movies_screen;
     }
 
     @NonNull
@@ -104,6 +110,9 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
 
     @Override
     public void onMovieItemClick(Movie movie) {
-
+        final Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
+        intent.putExtra(MOVIE_ID, movie.id());
+        intent.putExtra(MOVIE_TITLE, movie.title());
+        startActivity(intent);
     }
 }

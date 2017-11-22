@@ -33,7 +33,7 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.overview)
     TextView mOverview;
 
-    @BindString(R.string.movie_image_url_endppoint)
+    @BindString(R.string.movie_image_small_url_endppoint)
     String mImageUrlBase;
     @BindDrawable(R.drawable.ic_movie)
     Drawable mMovieIcon;

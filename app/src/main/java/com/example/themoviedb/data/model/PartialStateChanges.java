@@ -196,6 +196,117 @@ public interface PartialStateChanges {
     }
 
     /**
+     * Indicates that movie details are loading
+     */
+    final class MovieDetailsLoading implements PartialStateChanges {
+
+        @Override
+        public String toString() {
+            return "MovieDetailsLoading{}";
+        }
+    }
+
+    /**
+     * Indicates that an error has occurred while loading movie details
+     */
+    final class MovieDetailsError implements PartialStateChanges {
+        private final Throwable error;
+
+        public MovieDetailsError(Throwable error) {
+            this.error = error;
+        }
+
+        public Throwable getError() {
+            return error;
+        }
+
+        @Override
+        public String toString() {
+            return "MovieDetailsError{" +
+                "error=" + error +
+                '}';
+        }
+    }
+
+    /**
+     * Indicates that the movie details have been loaded successfully
+     */
+    final class MovieDetailsLoaded implements PartialStateChanges {
+        private final Movie movie;
+
+        public MovieDetailsLoaded(Movie movie) {
+            this.movie = movie;
+        }
+
+        public Movie getData() {
+            return movie;
+        }
+
+        @Override
+        public String toString() {
+            return "MovieDetailsLoaded{" +
+                "movie=" + movie +
+                '}';
+        }
+    }
+
+    /**
+     * Indicates that similar movies are loading
+     */
+    final class SimilarMoviesLoading implements PartialStateChanges {
+
+        @Override
+        public String toString() {
+            return "SimilarMoviesLoading{}";
+        }
+    }
+
+
+    /**
+     * Indicates that an error has occurred while loading similar movies
+     */
+    final class SimilarMoviesError implements PartialStateChanges {
+        private final Throwable error;
+
+        public SimilarMoviesError(Throwable error) {
+            this.error = error;
+        }
+
+        public Throwable getError() {
+            return error;
+        }
+
+        @Override
+        public String toString() {
+            return "SimilarMoviesError{" +
+                "error=" + error +
+                '}';
+        }
+    }
+
+    /**
+     * Indicates that the movie details have been loaded successfully
+     */
+    final class SimilarMoviesLoaded implements PartialStateChanges {
+        private final List<Movie> data;
+
+        public SimilarMoviesLoaded(List<Movie> data) {
+            this.data = data;
+        }
+
+        public List<Movie> getData() {
+            return data;
+        }
+
+        @Override
+        public String toString() {
+            return "SimilarMoviesLoaded{" +
+                "data=" + data +
+                '}';
+        }
+    }
+
+    /**
      * Indicates that loading the newest items via pull to refresh has started
      */
     final class PullToRefreshLoading implements PartialStateChanges {
