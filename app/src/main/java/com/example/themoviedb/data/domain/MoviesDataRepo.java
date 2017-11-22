@@ -19,6 +19,13 @@ public interface MoviesDataRepo {
     Observable<List<Movie>> getMostPopularMoviesLocal(int page);
 
     /**
+     * Gets {@link Movie} from the local storage.
+     *
+     * @param movieId Id of the movie.
+     */
+    Observable<Movie> getMovie(int movieId);
+
+    /**
      * Stores a {@link List} of {@link Movie}s locally.
      *
      * @param movies Movies to be stored.
@@ -35,7 +42,8 @@ public interface MoviesDataRepo {
     /**
      * Marks a {@link Movie} as watched locally.
      *
+     * @param movieId Id of the movie to be updated
      * @param watched True if the movie has been watched, false otherwise.
      */
-    void markMovieAsWatched(boolean watched);
+    Observable<Boolean> markMovieAsWatched(int movieId, boolean watched);
 }

@@ -79,6 +79,28 @@ public interface PartialStateChanges {
     }
 
     /**
+     * Indicates that the genre names have been loaded successfully
+     */
+    final class GenreNamesLoaded implements PartialStateChanges {
+        private final List<String> genreNames;
+
+        public GenreNamesLoaded(List<String> genres) {
+            this.genreNames = genres;
+        }
+
+        public List<String> getData() {
+            return genreNames;
+        }
+
+        @Override
+        public String toString() {
+            return "GenreNamesLoaded{" +
+                "genres=" + genreNames +
+                '}';
+        }
+    }
+
+    /**
      * Indicates that the first page is loading
      */
     final class FirstPageLoading implements PartialStateChanges {
@@ -301,6 +323,62 @@ public interface PartialStateChanges {
         @Override
         public String toString() {
             return "SimilarMoviesLoaded{" +
+                "data=" + data +
+                '}';
+        }
+    }
+
+    /**
+     * Indicates that the movie is being marked as watched
+     */
+    final class MarkingMovieAsWatched implements PartialStateChanges {
+
+        @Override
+        public String toString() {
+            return "MarkingMovieAsWatched{}";
+        }
+    }
+
+
+    /**
+     * Indicates that an error has occurred while marking the movie as watched
+     */
+    final class MarkingMovieAsWatchedError implements PartialStateChanges {
+        private final Throwable error;
+
+        public MarkingMovieAsWatchedError(Throwable error) {
+            this.error = error;
+        }
+
+        public Throwable getError() {
+            return error;
+        }
+
+        @Override
+        public String toString() {
+            return "MarkingMovieAsWatchedError{" +
+                "error=" + error +
+                '}';
+        }
+    }
+
+    /**
+     * Indicates that the movie was successfully marked as watched
+     */
+    final class MarkingMovieAsWatchedDone implements PartialStateChanges {
+        private final Boolean data;
+
+        public MarkingMovieAsWatchedDone(Boolean data) {
+            this.data = data;
+        }
+
+        public Boolean getData() {
+            return data;
+        }
+
+        @Override
+        public String toString() {
+            return "MarkingMovieAsWatchedDone{" +
                 "data=" + data +
                 '}';
         }

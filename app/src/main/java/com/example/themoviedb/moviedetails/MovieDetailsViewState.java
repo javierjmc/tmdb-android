@@ -27,12 +27,21 @@ public class MovieDetailsViewState {
     @Nullable
     public List<Movie> similarMovies;
 
+    @Nullable
+    public Boolean markingMovieAsWatched;
+
+    @Nullable
+    public Throwable markingMovieAsWatchedError;
+
+    @Nullable
+    public List<String> genreNames;
+
     public boolean isLoading() {
         return loadingMovieDetails() != null ? loadingMovieDetails() : loadingSimilarMovies() != null ? loadingSimilarMovies() : false;
     }
 
     public Throwable getError() {
-        return loadingMovieDetailsError() != null ? loadingMovieDetailsError() : loadingSimilarMoviesError();
+        return loadingMovieDetailsError() != null ? loadingMovieDetailsError() : loadingSimilarMoviesError() != null ? loadingSimilarMoviesError() : markingMovieAsWatchedError();
     }
 
     public static Builder builder() {
@@ -43,13 +52,16 @@ public class MovieDetailsViewState {
         return new Builder(this);
     }
 
-    public MovieDetailsViewState(Boolean loadingMovieDetails, Throwable loadingMovieDetailsError, Movie movie, Boolean loadingSimilarMovies, Throwable loadingSimilarMoviesError, List<Movie> similarMovies) {
+    public MovieDetailsViewState(Boolean loadingMovieDetails, Throwable loadingMovieDetailsError, Movie movie, Boolean loadingSimilarMovies, Throwable loadingSimilarMoviesError, List<Movie> similarMovies, Boolean markingMovieAsWatched, Throwable markingMovieAsWatchedError, List<String> genreNames) {
         this.loadingMovieDetails = loadingMovieDetails;
         this.loadingMovieDetailsError = loadingMovieDetailsError;
         this.movie = movie;
         this.loadingSimilarMovies = loadingSimilarMovies;
         this.loadingSimilarMoviesError = loadingSimilarMoviesError;
         this.similarMovies = similarMovies;
+        this.markingMovieAsWatched = markingMovieAsWatched;
+        this.markingMovieAsWatchedError = markingMovieAsWatchedError;
+        this.genreNames = genreNames;
     }
 
     @Nullable
@@ -82,6 +94,21 @@ public class MovieDetailsViewState {
         return similarMovies;
     }
 
+    @Nullable
+    public Boolean markingMovieAsWatched() {
+        return markingMovieAsWatched;
+    }
+
+    @Nullable
+    public Throwable markingMovieAsWatchedError() {
+        return markingMovieAsWatchedError;
+    }
+
+    @Nullable
+    public List<String> genreNames() {
+        return genreNames;
+    }
+
     @Override
     public String toString() {
         return "MovieDetailsViewState{" +
@@ -91,6 +118,9 @@ public class MovieDetailsViewState {
             ", loadingSimilarMovies=" + loadingSimilarMovies +
             ", loadingSimilarMoviesError=" + loadingSimilarMoviesError +
             ", similarMovies=" + similarMovies +
+            ", markingMovieAsWatched=" + markingMovieAsWatched +
+            ", markingMovieAsWatchedError=" + markingMovieAsWatchedError +
+            ", genreNames=" + genreNames +
             '}';
     }
 
@@ -110,7 +140,13 @@ public class MovieDetailsViewState {
             return false;
         if (loadingSimilarMoviesError != null ? !loadingSimilarMoviesError.equals(that.loadingSimilarMoviesError) : that.loadingSimilarMoviesError != null)
             return false;
-        return similarMovies != null ? similarMovies.equals(that.similarMovies) : that.similarMovies == null;
+        if (similarMovies != null ? !similarMovies.equals(that.similarMovies) : that.similarMovies != null)
+            return false;
+        if (markingMovieAsWatched != null ? !markingMovieAsWatched.equals(that.markingMovieAsWatched) : that.markingMovieAsWatched != null)
+            return false;
+        if (markingMovieAsWatchedError != null ? !markingMovieAsWatchedError.equals(that.markingMovieAsWatchedError) : that.markingMovieAsWatchedError != null)
+            return false;
+        return genreNames != null ? genreNames.equals(that.genreNames) : that.genreNames == null;
     }
 
     @Override
@@ -121,6 +157,9 @@ public class MovieDetailsViewState {
         result = 31 * result + (loadingSimilarMovies != null ? loadingSimilarMovies.hashCode() : 0);
         result = 31 * result + (loadingSimilarMoviesError != null ? loadingSimilarMoviesError.hashCode() : 0);
         result = 31 * result + (similarMovies != null ? similarMovies.hashCode() : 0);
+        result = 31 * result + (markingMovieAsWatched != null ? markingMovieAsWatched.hashCode() : 0);
+        result = 31 * result + (markingMovieAsWatchedError != null ? markingMovieAsWatchedError.hashCode() : 0);
+        result = 31 * result + (genreNames != null ? genreNames.hashCode() : 0);
         return result;
     }
 
@@ -137,6 +176,12 @@ public class MovieDetailsViewState {
         public Throwable loadingSimilarMoviesError;
         @Nullable
         public List<Movie> similarMovies;
+        @Nullable
+        public Boolean markingMovieAsWatched;
+        @Nullable
+        public Throwable markingMovieAsWatchedError;
+        @Nullable
+        public List<String> genreNames;
 
         public Builder() {
         }
@@ -148,6 +193,9 @@ public class MovieDetailsViewState {
             this.loadingSimilarMovies = toCopyFrom.loadingSimilarMovies();
             this.loadingSimilarMoviesError = toCopyFrom.loadingSimilarMoviesError();
             this.similarMovies = toCopyFrom.similarMovies();
+            this.markingMovieAsWatched = toCopyFrom.markingMovieAsWatched();
+            this.markingMovieAsWatchedError = toCopyFrom.markingMovieAsWatchedError();
+            this.genreNames = toCopyFrom.genreNames();
         }
 
         public Builder loadingMovieDetails(Boolean value) {
@@ -180,8 +228,23 @@ public class MovieDetailsViewState {
             return this;
         }
 
+        public Builder markingMovieAsWatched(Boolean value) {
+            this.markingMovieAsWatched = value;
+            return this;
+        }
+
+        public Builder markingMovieAsWatchedError(Throwable value) {
+            this.markingMovieAsWatchedError = value;
+            return this;
+        }
+
+        public Builder genreNames(List<String> value) {
+            this.genreNames = value;
+            return this;
+        }
+
         public MovieDetailsViewState build() {
-            return new MovieDetailsViewState(loadingMovieDetails, loadingMovieDetailsError, movie, loadingSimilarMovies, loadingSimilarMoviesError, similarMovies);
+            return new MovieDetailsViewState(loadingMovieDetails, loadingMovieDetailsError, movie, loadingSimilarMovies, loadingSimilarMoviesError, similarMovies, markingMovieAsWatched, markingMovieAsWatchedError, genreNames);
         }
     }
 }

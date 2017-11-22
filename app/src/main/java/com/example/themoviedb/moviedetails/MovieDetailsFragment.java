@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.example.themoviedb.utils.GlideApp;
 import com.hannesdorfmann.mosby3.mvi.MviPresenter;
 import com.jakewharton.rxbinding2.view.RxView;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -33,6 +35,7 @@ import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import io.reactivex.Observable;
+import io.reactivex.subjects.BehaviorSubject;
 
 public class MovieDetailsFragment extends BaseFragment<MovieDetailsView, MovieDetailsPresenter> implements MovieDetailsView, SimilarMoviesAdapter.OnSimilarMovieItemClickListener {
 
@@ -59,6 +62,12 @@ public class MovieDetailsFragment extends BaseFragment<MovieDetailsView, MovieDe
     RecyclerView mSimilarMovies;
     @BindView(R.id.movie_fab)
     FloatingActionButton mMovieFab;
+    @BindView(R.id.label_overview)
+    TextView mLabelOverview;
+    @BindView(R.id.label_similar)
+    TextView mLabelSimilar;
+    @BindView(R.id.label_tagline)
+    TextView mLabelTagline;
 
     @BindString(R.string.movie_image_big_url_endppoint)
     String mImageUrlBase;
@@ -70,7 +79,8 @@ public class MovieDetailsFragment extends BaseFragment<MovieDetailsView, MovieDe
 
     private int mMovieId = 0;
     private String mMovieTitle = "";
-    private Boolean mIsMovieWatched;
+    private Boolean mIsMovieWatched = false;
+    private BehaviorSubject<List<Integer>> genresIdsSubject = BehaviorSubject.createDefault(Collections.emptyList());
 
     private SimilarMoviesAdapter mSimilarMoviesAdapter = new SimilarMoviesAdapter();
 
@@ -125,21 +135,21 @@ public class MovieDetailsFragment extends BaseFragment<MovieDetailsView, MovieDe
     }
 
     @Override
-    public Observable<Boolean> markAsWatchedIntent() {
-        return RxView.clicks(mMovieFab).debounce(300, TimeUnit.MILLISECONDS).map(clicked -> {
-            toggleFab(mMovieFab);
-            mIsMovieWatched = !mIsMovieWatched;
+    public Observable<List<Integer>> loadGenresForMovieIntent() {
+        return genresIdsSubject;
+    }
 
-            return mIsMovieWatched;
-        });
+    @Override
+    public Observable<Pair<Integer, Boolean>> markAsWatchedIntent() {
+        return RxView.clicks(mMovieFab).debounce(300, TimeUnit.MILLISECONDS).map(ignored -> new Pair<>(mMovieId, !mIsMovieWatched));
     }
 
     /**
      * Toggles the movie {@link FloatingActionButton} properties, i.e. background color and icon.
      */
-    private void toggleFab(FloatingActionButton movieFab) {
-        movieFab.setBackgroundColor(mIsMovieWatched ? ContextCompat.getColor(getContext(), R.color.blue) : ContextCompat.getColor(getContext(), R.color.green));
-        movieFab.setImageDrawable(mIsMovieWatched ? ContextCompat.getDrawable(getContext(), R.drawable.ic_seen) : ContextCompat.getDrawable(getContext(), R.drawable.ic_check));
+    private void toggleFab(FloatingActionButton movieFab, Boolean isMovieWatched) {
+        movieFab.setBackgroundTintList(isMovieWatched ? ContextCompat.getColorStateList(getContext(), R.color.green) : ContextCompat.getColorStateList(getContext(), R.color.blue));
+        movieFab.setImageDrawable(isMovieWatched ? ContextCompat.getDrawable(getContext(), R.drawable.ic_check) : ContextCompat.getDrawable(getContext(), R.drawable.ic_seen));
     }
 
     @Override
@@ -147,9 +157,11 @@ public class MovieDetailsFragment extends BaseFragment<MovieDetailsView, MovieDe
 
         final Movie movie = viewState.movie();
         if (movie != null) {
+            showLabels(true);
+
             mMovieYear.setText(Integer.toString(movie.releaseDate().getYear()));
             mMovieRuntime.setText(getString(R.string.details_runtime, movie.runtime()));
-//            mMovieGenres.setText(GenreUtil.filterGenres(genres, movie).toString().replaceAll("[\\[.\\].\\s+]", " "));
+            mMovieGenres.setText(viewState.genreNames().toString().replaceAll("[\\[.\\].\\s+]", " "));
             mMovieRating.setText(String.valueOf(movie.voteAverage()));
             mMovieOverview.setText(movie.overview());
             mMovieTagline.setText(movie.tagline());
@@ -160,6 +172,13 @@ public class MovieDetailsFragment extends BaseFragment<MovieDetailsView, MovieDe
                 .placeholder(mMovieIcon)
                 .centerCrop()
                 .into(mMoviePoster);
+
+            genresIdsSubject.onNext(movie.genreIds());
+
+            if (movie.watched() != null) {
+                mIsMovieWatched = movie.watched();
+                toggleFab(mMovieFab, movie.watched());
+            }
         }
 
         final List<Movie> similarMovies = viewState.similarMovies();
@@ -175,6 +194,19 @@ public class MovieDetailsFragment extends BaseFragment<MovieDetailsView, MovieDe
         if (error != null) {
             Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Controls the visibility of the labels and the FAB.
+     *
+     * @param show True to show the views, false to hide them.
+     */
+    private void showLabels(boolean show) {
+        mMovieFab.setVisibility(show ? View.VISIBLE : View.GONE);
+        mMovieRating.setVisibility(show ? View.VISIBLE : View.GONE);
+        mLabelOverview.setVisibility(show ? View.VISIBLE : View.GONE);
+        mLabelSimilar.setVisibility(show ? View.VISIBLE : View.GONE);
+        mLabelTagline.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     /**

@@ -54,16 +54,8 @@ public class MoviesRepoImpl implements MoviesRepo {
 
     @Override
     public Observable<Movie> getMovieDetails(int movieId) {
-        return theMovieDbApi.getMovieDetails(movieId, null)
-            .toObservable()
-            .doOnNext(movie -> {
-                Timber.d("Dispatching movie with id %d from API...", movie.id());
-                moviesDataRepo.updateMovieDetailsLocal(movie);
-            })
-            .onErrorReturn(t -> {
-                Timber.e(t.getMessage());
-                return Movie.builder().build();
-            })
+        return Observable.combineLatest(moviesDataRepo.getMovie(movieId), getMovieDetailsLocal(movieId), (movieLocal, movieApi) ->
+            movieApi.toBuilder().watched(movieLocal.watched()).genreIds(movieLocal.genreIds()).build())
             .compose(apiSchedulers.forObservable());
     }
 
@@ -98,4 +90,17 @@ public class MoviesRepoImpl implements MoviesRepo {
             .compose(apiSchedulers.forObservable());
     }
 
+    private Observable<Movie> getMovieDetailsLocal(final int movieId) {
+        return theMovieDbApi.getMovieDetails(movieId, null)
+            .toObservable()
+            .doOnNext(movie -> {
+                Timber.d("Dispatching movie with id %d from API...", movie.id());
+                moviesDataRepo.updateMovieDetailsLocal(movie);
+            })
+            .onErrorReturn(t -> {
+                Timber.e(t.getMessage());
+                return Movie.builder().build();
+            })
+            .compose(apiSchedulers.forObservable());
+    }
 }

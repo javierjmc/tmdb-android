@@ -56,6 +56,9 @@ public class Movie implements FeedItem {
     @Json(name = "release_date")
     public DateTime releaseDate;
 
+    @Nullable
+    public Boolean watched;
+
     public static Builder builder() {
         return new Builder();
     }
@@ -64,7 +67,7 @@ public class Movie implements FeedItem {
         return new Builder(this);
     }
 
-    public Movie(int id, float voteAverage, long voteCount, String title, float popularity, String posterPath, String originalLanguage, String originalTitle, List<Integer> genreIds, boolean adult, String overview, String tagline, Integer runtime, DateTime releaseDate) {
+    public Movie(int id, float voteAverage, long voteCount, String title, float popularity, String posterPath, String originalLanguage, String originalTitle, List<Integer> genreIds, boolean adult, String overview, String tagline, Integer runtime, DateTime releaseDate, Boolean watched) {
         this.id = id;
         this.voteAverage = voteAverage;
         this.voteCount = voteCount;
@@ -79,6 +82,7 @@ public class Movie implements FeedItem {
         this.tagline = tagline;
         this.runtime = runtime;
         this.releaseDate = releaseDate;
+        this.watched = watched;
     }
 
     public int id() {
@@ -142,6 +146,11 @@ public class Movie implements FeedItem {
         return releaseDate;
     }
 
+    @Nullable
+    public Boolean watched() {
+        return watched;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -159,6 +168,7 @@ public class Movie implements FeedItem {
             ", tagline='" + tagline + '\'' +
             ", runtime=" + runtime +
             ", releaseDate=" + releaseDate +
+            ", watched=" + watched +
             '}';
     }
 
@@ -174,18 +184,22 @@ public class Movie implements FeedItem {
         if (voteCount != movie.voteCount) return false;
         if (Float.compare(movie.popularity, popularity) != 0) return false;
         if (adult != movie.adult) return false;
-        if (!title.equals(movie.title)) return false;
+        if (title != null ? !title.equals(movie.title) : movie.title != null) return false;
         if (posterPath != null ? !posterPath.equals(movie.posterPath) : movie.posterPath != null)
             return false;
         if (originalLanguage != null ? !originalLanguage.equals(movie.originalLanguage) : movie.originalLanguage != null)
             return false;
         if (originalTitle != null ? !originalTitle.equals(movie.originalTitle) : movie.originalTitle != null)
             return false;
-        if (!genreIds.equals(movie.genreIds)) return false;
-        if (!overview.equals(movie.overview)) return false;
+        if (genreIds != null ? !genreIds.equals(movie.genreIds) : movie.genreIds != null)
+            return false;
+        if (overview != null ? !overview.equals(movie.overview) : movie.overview != null)
+            return false;
         if (tagline != null ? !tagline.equals(movie.tagline) : movie.tagline != null) return false;
         if (runtime != null ? !runtime.equals(movie.runtime) : movie.runtime != null) return false;
-        return releaseDate.equals(movie.releaseDate);
+        if (releaseDate != null ? !releaseDate.equals(movie.releaseDate) : movie.releaseDate != null)
+            return false;
+        return watched != null ? watched.equals(movie.watched) : movie.watched == null;
     }
 
     @Override
@@ -193,17 +207,18 @@ public class Movie implements FeedItem {
         int result = id;
         result = 31 * result + (voteAverage != +0.0f ? Float.floatToIntBits(voteAverage) : 0);
         result = 31 * result + (int) (voteCount ^ (voteCount >>> 32));
-        result = 31 * result + title.hashCode();
+        result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (popularity != +0.0f ? Float.floatToIntBits(popularity) : 0);
         result = 31 * result + (posterPath != null ? posterPath.hashCode() : 0);
         result = 31 * result + (originalLanguage != null ? originalLanguage.hashCode() : 0);
         result = 31 * result + (originalTitle != null ? originalTitle.hashCode() : 0);
-        result = 31 * result + genreIds.hashCode();
+        result = 31 * result + (genreIds != null ? genreIds.hashCode() : 0);
         result = 31 * result + (adult ? 1 : 0);
-        result = 31 * result + overview.hashCode();
+        result = 31 * result + (overview != null ? overview.hashCode() : 0);
         result = 31 * result + (tagline != null ? tagline.hashCode() : 0);
         result = 31 * result + (runtime != null ? runtime.hashCode() : 0);
-        result = 31 * result + releaseDate.hashCode();
+        result = 31 * result + (releaseDate != null ? releaseDate.hashCode() : 0);
+        result = 31 * result + (watched != null ? watched.hashCode() : 0);
         return result;
     }
 
@@ -222,9 +237,13 @@ public class Movie implements FeedItem {
         public List<Integer> genreIds;
         public boolean adult;
         public String overview;
+        @Nullable
         public String tagline;
+        @Nullable
         public Integer runtime;
         public DateTime releaseDate;
+        @Nullable
+        public Boolean watched;
 
         public Builder() {
         }
@@ -244,6 +263,7 @@ public class Movie implements FeedItem {
             this.runtime = toCopyFrom.runtime();
             this.tagline = toCopyFrom.tagline();
             this.releaseDate = toCopyFrom.releaseDate();
+            this.watched = toCopyFrom.watched();
         }
 
         public Builder id(int value) {
@@ -316,8 +336,13 @@ public class Movie implements FeedItem {
             return this;
         }
 
+        public Builder watched(Boolean value) {
+            this.watched = value;
+            return this;
+        }
+
         public Movie build() {
-            return new Movie(id, voteAverage, voteCount, title, popularity, posterPath, originalLanguage, originalTitle, genreIds, adult, overview, tagline, runtime, releaseDate);
+            return new Movie(id, voteAverage, voteCount, title, popularity, posterPath, originalLanguage, originalTitle, genreIds, adult, overview, tagline, runtime, releaseDate, watched);
         }
     }
 }

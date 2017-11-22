@@ -107,11 +107,13 @@
         android:drawableTint="@color/yellow"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movie_year"
-        tools:text="7.8" />
+        tools:text="7.8"
+        tools:visibility="visible" />
 
       <TextView
         android:id="@+id/label_overview"
@@ -122,9 +124,11 @@
         android:layout_marginTop="8dp"
         android:text="@string/details_overview"
         android:textSize="12sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_rating" />
+        app:layout_constraintTop_toBottomOf="@+id/movie_rating"
+        tools:visibility="visible" />
 
       <TextView
         android:id="@+id/movie_overview"
@@ -147,9 +151,11 @@
         android:layout_marginTop="8dp"
         android:text="@string/details_tagline"
         android:textSize="12sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_overview" />
+        app:layout_constraintTop_toBottomOf="@+id/movie_overview"
+        tools:visibility="visible" />
 
       <TextView
         android:id="@+id/movie_tagline"
@@ -172,9 +178,11 @@
         android:layout_marginTop="8dp"
         android:text="@string/details_similar"
         android:textSize="12sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_tagline" />
+        app:layout_constraintTop_toBottomOf="@+id/movie_tagline"
+        tools:visibility="visible" />
 
 
       <android.support.v7.widget.RecyclerView
@@ -204,8 +212,10 @@
     android:focusable="true"
     android:src="@drawable/ic_seen"
     android:tint="@color/dark_gray"
+    android:visibility="gone"
     app:fabSize="normal"
     app:layout_anchor="@id/appBar"
     app:layout_anchorGravity="bottom|end"
-    app:pressedTranslationZ="16dp" />
+    app:pressedTranslationZ="16dp"
+    tools:visibility="visible" />
 </android.support.design.widget.CoordinatorLayout>

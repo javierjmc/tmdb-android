@@ -38,6 +38,13 @@ public class MoviesDataRepoImpl implements MoviesDataRepo {
     }
 
     @Override
+    public Observable<Movie> getMovie(int movieId) {
+        return movieDao.getMovie(movieId)
+            .toObservable()
+            .doOnNext(movies -> Timber.d("Dispatching movie with id %d from DB...", movieId));
+    }
+
+    @Override
     public void storeMoviesLocal(List<Movie> movies) {
         Observable.fromCallable(() -> movieDao.insertAll(movies))
             .subscribeOn(Schedulers.io())
@@ -50,14 +57,15 @@ public class MoviesDataRepoImpl implements MoviesDataRepo {
         Observable.fromCallable(() -> movieDao.updateMovieDetails(movie.id(), movie.tagline(), movie.runtime()))
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .subscribe(t -> Timber.d("Inserted movie with id %d from API in DB...", movie.id()));
+            .subscribe(t -> Timber.d("Updated movie details with id %d from API in DB...", movie.id()));
     }
 
     @Override
-    public void markMovieAsWatched(boolean watched) {
-        Observable.fromCallable(() -> movieDao.updateMovieDetails(movie.id(), movie.tagline(), movie.runtime()))
+    public Observable<Boolean> markMovieAsWatched(int movieId, boolean watched) {
+        return Observable.fromCallable(() -> movieDao.updateMovieWatched(movieId, watched))
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .subscribe(t -> Timber.d("Inserted movie with id %d from API in DB...", movie.id()));
+            .doOnNext(t -> Timber.d("Marked movie with id %d as watched %b...", movieId, watched))
+            .map(ignored -> watched);
     }
 }
