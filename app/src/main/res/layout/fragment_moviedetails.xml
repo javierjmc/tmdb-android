@@ -116,7 +116,7 @@
       <TextView
         android:id="@+id/label_overview"
         android:layout_width="0dp"
-        android:layout_height="13dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
@@ -141,7 +141,7 @@
       <TextView
         android:id="@+id/label_tagline"
         android:layout_width="0dp"
-        android:layout_height="13dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
@@ -166,7 +166,7 @@
       <TextView
         android:id="@+id/label_similar"
         android:layout_width="0dp"
-        android:layout_height="13dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
@@ -196,11 +196,16 @@
   </android.support.v4.widget.NestedScrollView>
 
   <android.support.design.widget.FloatingActionButton
+    android:id="@+id/movie_fab"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
+    android:clickable="true"
+    android:focusable="true"
     android:src="@drawable/ic_seen"
+    android:tint="@color/dark_gray"
     app:fabSize="normal"
     app:layout_anchor="@id/appBar"
-    app:layout_anchorGravity="bottom|end" />
+    app:layout_anchorGravity="bottom|end"
+    app:pressedTranslationZ="16dp" />
 </android.support.design.widget.CoordinatorLayout>
