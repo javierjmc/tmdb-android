@@ -46,8 +46,16 @@ public class MoviesDataRepoImpl implements MoviesDataRepo {
     }
 
     @Override
-    public void updateMovieLocal(Movie movie) {
-        Observable.fromCallable(() -> movieDao.update(movie))
+    public void updateMovieDetailsLocal(Movie movie) {
+        Observable.fromCallable(() -> movieDao.updateMovieDetails(movie.id(), movie.tagline(), movie.runtime()))
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe(t -> Timber.d("Inserted movie with id %d from API in DB...", movie.id()));
+    }
+
+    @Override
+    public void markMovieAsWatched(boolean watched) {
+        Observable.fromCallable(() -> movieDao.updateMovieDetails(movie.id(), movie.tagline(), movie.runtime()))
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(t -> Timber.d("Inserted movie with id %d from API in DB...", movie.id()));

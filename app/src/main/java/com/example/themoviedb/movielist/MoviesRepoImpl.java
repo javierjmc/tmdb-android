@@ -58,7 +58,7 @@ public class MoviesRepoImpl implements MoviesRepo {
             .toObservable()
             .doOnNext(movie -> {
                 Timber.d("Dispatching movie with id %d from API...", movie.id());
-                moviesDataRepo.updateMovieLocal(movie);
+                moviesDataRepo.updateMovieDetailsLocal(movie);
             })
             .onErrorReturn(t -> {
                 Timber.e(t.getMessage());

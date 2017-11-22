@@ -30,5 +30,12 @@ public interface MoviesDataRepo {
      *
      * @param movie Movie to be stored.
      */
-    void updateMovieLocal(Movie movie);
+    void updateMovieDetailsLocal(Movie movie);
+
+    /**
+     * Marks a {@link Movie} as watched locally.
+     *
+     * @param watched True if the movie has been watched, false otherwise.
+     */
+    void markMovieAsWatched(boolean watched);
 }

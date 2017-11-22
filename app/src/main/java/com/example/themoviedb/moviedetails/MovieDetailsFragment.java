@@ -149,7 +149,7 @@ public class MovieDetailsFragment extends BaseFragment<MovieDetailsView, MovieDe
         if (movie != null) {
             mMovieYear.setText(Integer.toString(movie.releaseDate().getYear()));
             mMovieRuntime.setText(getString(R.string.details_runtime, movie.runtime()));
-//            mMovieGenres.setText(genres.toString().replaceAll("[\\[.\\].\\s+]", " "));
+//            mMovieGenres.setText(GenreUtil.filterGenres(genres, movie).toString().replaceAll("[\\[.\\].\\s+]", " "));
             mMovieRating.setText(String.valueOf(movie.voteAverage()));
             mMovieOverview.setText(movie.overview());
             mMovieTagline.setText(movie.tagline());

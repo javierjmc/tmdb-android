@@ -67,4 +67,15 @@ public interface MovieDao {
      */
     @Update(onConflict = OnConflictStrategy.REPLACE)
     int update(Movie movie);
+
+    /**
+     * Updates {@link Movie} details in the database
+     *
+     * @param movieId Id of the movie to be updated
+     * @param tagline Tagline of the movie
+     * @param runtime Runtime of the movie
+     * @return number of movies matching the query
+     */
+    @Query("UPDATE movies SET tagline = :tagline, runtime = :runtime WHERE movie_id = :movieId")
+    int updateMovieDetails(int movieId, String tagline, int runtime);
 }

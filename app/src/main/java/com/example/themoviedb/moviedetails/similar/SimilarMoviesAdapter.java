@@ -24,10 +24,6 @@ public class SimilarMoviesAdapter extends RecyclerView.Adapter<RecyclerView.View
         notifyDataSetChanged();
     }
 
-    public List<Movie> getSimilarMovies() {
-        return similarMovies;
-    }
-
     private OnSimilarMovieItemClickListener getFeedItemListener() {
         return listener;
     }
