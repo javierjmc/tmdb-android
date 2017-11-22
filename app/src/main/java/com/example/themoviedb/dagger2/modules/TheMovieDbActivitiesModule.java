@@ -5,7 +5,8 @@ import dagger.android.AndroidInjectionModule;
 
 @Module(includes = {
     AndroidInjectionModule.class,
-    MovieListFeatureModule.class
+    MovieListFeatureModule.class,
+    MovieDetailsFeatureModule.class
 })
 public abstract class TheMovieDbActivitiesModule {
 }
