@@ -2,10 +2,12 @@
   <string name="app_name">The Movie DB</string>
 
   <!-- SCREEN: DISCOVER -->
-  <string name="discover_popular_movies">Popular Movies</string>
+  <string name="discover_popular_movies_screen">Popular Movies</string>
 
   <!-- SCREEN: DETAILS -->
   <string name="details_overview">Overview</string>
   <string name="details_tagline">Tagline</string>
+  <string name="details_similar">Similar Movies</string>
+  <string name="details_runtime">%d min</string>
 
 </resources>

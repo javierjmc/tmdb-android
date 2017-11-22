@@ -39,6 +39,14 @@
         app:layout_collapseMode="pin"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+      <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
     </android.support.design.widget.CollapsingToolbarLayout>
   </android.support.design.widget.AppBarLayout>
 
@@ -88,6 +96,24 @@
         tools:text="Horror, Thriller" />
 
       <TextView
+        android:id="@+id/movie_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:drawableEnd="@drawable/ic_star"
+        android:drawablePadding="5dp"
+        android:drawableTint="@color/yellow"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_year"
+        tools:text="7.8" />
+
+      <TextView
         android:id="@+id/label_overview"
         android:layout_width="0dp"
         android:layout_height="13dp"
@@ -98,7 +124,7 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_year" />
+        app:layout_constraintTop_toBottomOf="@+id/movie_rating" />
 
       <TextView
         android:id="@+id/movie_overview"
@@ -137,6 +163,33 @@
         app:layout_constraintTop_toBottomOf="@id/label_tagline"
         tools:text="Movie tagline" />
 
+      <TextView
+        android:id="@+id/label_similar"
+        android:layout_width="0dp"
+        android:layout_height="13dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/details_similar"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_tagline" />
+
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/similar_movies"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_similar"
+        tools:listitem="@layout/movie_item_small" />
 
     </android.support.constraint.ConstraintLayout>
 
