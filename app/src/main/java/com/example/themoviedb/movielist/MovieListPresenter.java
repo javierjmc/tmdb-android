@@ -73,6 +73,9 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
             MovieListView::render);
     }
 
+    /**
+     * Reduces different states into one, which is rendered by the view.
+     * */
     private MovieListViewState viewStateReducer(final MovieListViewState previousState, final PartialStateChanges partialChanges) {
 
         if (partialChanges instanceof PartialStateChanges.GenresLoading) {

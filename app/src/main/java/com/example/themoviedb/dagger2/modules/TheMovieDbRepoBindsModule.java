@@ -12,6 +12,9 @@ import com.example.themoviedb.movielist.MoviesRepoImpl;
 import dagger.Binds;
 import dagger.Module;
 
+/**
+ * Binds repositories used in the app, i.e. {@link MoviesRepo}, {@link MoviesDataRepo}, {@link GenresRepo} and {@link GenresDataRepo}.
+ */
 @Module
 public abstract class TheMovieDbRepoBindsModule {
 

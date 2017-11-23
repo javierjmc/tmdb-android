@@ -13,6 +13,9 @@ import dagger.Provides;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.support.AndroidSupportInjectionModule;
 
+/**
+ * Module for app related dependencies, such as {@link Application} or {@link Context}.
+ */
 @Module(
     includes = {
         AndroidInjectionModule.class,

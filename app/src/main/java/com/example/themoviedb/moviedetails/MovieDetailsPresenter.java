@@ -74,6 +74,9 @@ public class MovieDetailsPresenter extends MviBasePresenter<MovieDetailsView, Mo
             MovieDetailsView::render);
     }
 
+    /**
+     * Reduces different states into one, which is rendered by the view.
+     * */
     private MovieDetailsViewState viewStateReducer(final MovieDetailsViewState previousState, final PartialStateChanges partialChanges) {
         if (partialChanges instanceof PartialStateChanges.MovieDetailsLoading) {
             return previousState;

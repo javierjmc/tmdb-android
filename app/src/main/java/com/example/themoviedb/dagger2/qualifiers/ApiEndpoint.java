@@ -6,6 +6,9 @@ import javax.inject.Qualifier;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * Qualifier to represent an api endpoint.
+ */
 @Qualifier
 @Retention(RUNTIME)
 public @interface ApiEndpoint {

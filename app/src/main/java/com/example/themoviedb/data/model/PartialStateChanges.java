@@ -21,6 +21,9 @@ import android.util.Pair;
 
 import java.util.List;
 
+/**
+ * Represents partial ViewState changes.
+ */
 public interface PartialStateChanges {
 
     /**

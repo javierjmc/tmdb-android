@@ -7,6 +7,9 @@ import com.example.themoviedb.data.model.Movie;
 
 import java.util.List;
 
+/**
+ * Represents the different states of the  {@link MovieDetailsView}.
+ */
 public class MovieDetailsViewState {
 
     @Nullable

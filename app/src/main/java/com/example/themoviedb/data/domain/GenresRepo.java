@@ -11,6 +11,9 @@ import io.reactivex.Observable;
  */
 public interface GenresRepo {
 
+    /**
+     * Gets the full list of genres from the api.
+     */
     Observable<List<Genre>> getGenres();
 
 }
