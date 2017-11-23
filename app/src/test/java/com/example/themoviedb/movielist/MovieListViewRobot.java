@@ -29,7 +29,7 @@ import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.ReplaySubject;
 
 /**
- * This class is responsible to drive the MovieListView.
+ * This class is responsible to drive the {@link MovieListView}.
  * Internally this creates a {@link MovieListView} and attaches it to the {@link MovieListPresenter}
  * and offers public API to fire view intents and to check for expected view.render() events.
  */
@@ -37,10 +37,10 @@ public class MovieListViewRobot {
 
     private final MovieListPresenter presenter;
     private final PublishSubject<Boolean> loadMoviesFirstPageSubject = PublishSubject.create();
-    private final PublishSubject<Long> loadDetailsSubject = PublishSubject.create();
     private final PublishSubject<Integer> loadNextPageSubject = PublishSubject.create();
     private final PublishSubject<Boolean> loadGenresSubject = PublishSubject.create();
     private final PublishSubject<Boolean> pullToRefreshSubject = PublishSubject.create();
+
     private final List<MovieListViewState> renderEvents = new CopyOnWriteArrayList<>();
     private final ReplaySubject<MovieListViewState> renderEventSubject = ReplaySubject.create();
 
@@ -58,11 +58,6 @@ public class MovieListViewRobot {
         @Override
         public Observable<Boolean> loadGenresIntent() {
             return loadGenresSubject;
-        }
-
-        @Override
-        public Observable<Long> loadMovieDetailsIntent() {
-            return loadDetailsSubject;
         }
 
         @Override
@@ -94,7 +89,7 @@ public class MovieListViewRobot {
     public void assertViewStateRendered(MovieListViewState... expectedMovieListViewState) {
 
         if (expectedMovieListViewState == null) {
-            throw new NullPointerException("expectedHomeViewStates == null");
+            throw new NullPointerException("expectedMovieListViewState == null");
         }
 
         int eventsCount = expectedMovieListViewState.length;

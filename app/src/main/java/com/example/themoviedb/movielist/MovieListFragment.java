@@ -13,7 +13,6 @@ import com.example.themoviedb.BaseFragment;
 import com.example.themoviedb.R;
 import com.example.themoviedb.data.model.Movie;
 import com.example.themoviedb.moviedetails.MovieDetailsActivity;
-import com.example.themoviedb.moviedetails.MovieDetailsFragment;
 import com.example.themoviedb.movielist.list.MovieListAdapter;
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView;
 
@@ -80,11 +79,6 @@ public class MovieListFragment extends BaseFragment<MovieListView, MovieListPres
     @Override
     public Observable<Boolean> loadGenresIntent() {
         return Observable.just(true).doOnComplete(() -> Timber.d("loadGenres completed"));
-    }
-
-    @Override
-    public Observable<Long> loadMovieDetailsIntent() {
-        return null;
     }
 
     @Override

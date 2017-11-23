@@ -28,13 +28,6 @@ public interface MovieListView extends MvpView {
     Observable<Boolean> loadGenresIntent();
 
     /**
-     * The intent to load movie details
-     *
-     * @return Observable with the id of the movie tp be displayed.
-     */
-    Observable<Long> loadMovieDetailsIntent();
-
-    /**
      * Renders the View
      *
      * @param viewState The current viewState state that should be displayed

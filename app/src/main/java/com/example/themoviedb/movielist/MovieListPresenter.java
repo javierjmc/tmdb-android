@@ -79,7 +79,7 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
     private MovieListViewState viewStateReducer(final MovieListViewState previousState, final PartialStateChanges partialChanges) {
 
         if (partialChanges instanceof PartialStateChanges.GenresLoading) {
-            return previousState.builder()
+            return MovieListViewState.builder()
                 .page(previousState.page())
                 .loadingGenres(true)
                 .loadingGenresError(null)
@@ -88,7 +88,7 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
         }
 
         if (partialChanges instanceof PartialStateChanges.GenresError) {
-            return previousState.builder()
+            return MovieListViewState.builder()
                 .page(previousState.page())
                 .loadingNextPage(previousState.loadingNextPage())
                 .loadingGenres(false)
@@ -97,7 +97,7 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
         }
 
         if (partialChanges instanceof PartialStateChanges.GenresLoaded) {
-            return previousState.builder()
+            return MovieListViewState.builder()
                 .page(previousState.page())
                 .loadingNextPage(previousState.loadingNextPage())
                 .loadingGenres(false)
@@ -107,7 +107,7 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
         }
 
         if (partialChanges instanceof PartialStateChanges.FirstPageLoading) {
-            return previousState.toBuilder().loadingFirstPage(true).loadingNextPage(false).page(1).firstPageError(null).build();
+            return MovieListViewState.builder().page(1).loadingFirstPage(true).loadingNextPage(false).build();
         }
 
         if (partialChanges instanceof PartialStateChanges.FirstPageError) {
@@ -123,6 +123,7 @@ public class MovieListPresenter extends MviBasePresenter<MovieListView, MovieLis
                 .loadingNextPage(false)
                 .firstPageError(null)
                 .data(((PartialStateChanges.FirstPageLoaded) partialChanges).getData())
+                .page(1)
                 .build();
         }
 

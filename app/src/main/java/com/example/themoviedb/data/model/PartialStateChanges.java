@@ -148,7 +148,7 @@ public interface PartialStateChanges {
      */
     final class FirstPageLoaded implements PartialStateChanges {
         private final List<FeedItem> data;
-        private final int page;
+        private final Integer page;
 
         public FirstPageLoaded(Pair<Integer, List<FeedItem>> data) {
             this.page = data.first;
@@ -159,7 +159,7 @@ public interface PartialStateChanges {
             return data;
         }
 
-        public int getPage() {
+        public Integer getPage() {
             return page;
         }
     }

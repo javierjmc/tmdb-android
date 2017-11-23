@@ -72,11 +72,6 @@ android {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 }
-/*
-android.applicationVariants.all {
-    def aptOutputDir = new File(buildDir, "generated/source/apt/${it.unitTestVariant.dirName}")
-    it.unitTestVariant.addJavaSourceFoldersToModel(aptOutputDir)
-}*/
 
 dependencies {
     implementation "com.android.support:design:${vers.support}"
@@ -154,6 +149,16 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     androidTestImplementation "android.arch.persistence.room:testing:${vers.room}"
     androidTestImplementation "android.arch.core:core-testing:${vers.room}"
+
+    testImplementation "org.robolectric:robolectric:3.5.1"
+
+    android {
+        testOptions {
+            unitTests {
+                includeAndroidResources = true
+            }
+        }
+    }
 
     // A debug bridge for Android applications
     // See: http://facebook.github.io/stetho/
