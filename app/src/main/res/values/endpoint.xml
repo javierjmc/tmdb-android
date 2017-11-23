@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- See image sizes: https://developers.themoviedb.org/3/configuration/get-api-configuration -->
-  <string name="movie_image_url_endppoint" translatable="false">https://image.tmdb.org/t/p/w185</string>
+  <string name="movie_image_small_url_endppoint" translatable="false">https://image.tmdb.org/t/p/w185</string>
+  <string name="movie_image_big_url_endppoint" translatable="false">https://image.tmdb.org/t/p/w500</string>
 </resources>

@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_popup_enter, R.anim.abc_popup_exit);
         fragmentTransaction.replace(R.id.content, new MovieListFragment());
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 }

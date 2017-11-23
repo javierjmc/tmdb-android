@@ -79,6 +79,28 @@ public interface PartialStateChanges {
     }
 
     /**
+     * Indicates that the genre names have been loaded successfully
+     */
+    final class GenreNamesLoaded implements PartialStateChanges {
+        private final List<String> genreNames;
+
+        public GenreNamesLoaded(List<String> genres) {
+            this.genreNames = genres;
+        }
+
+        public List<String> getData() {
+            return genreNames;
+        }
+
+        @Override
+        public String toString() {
+            return "GenreNamesLoaded{" +
+                "genres=" + genreNames +
+                '}';
+        }
+    }
+
+    /**
      * Indicates that the first page is loading
      */
     final class FirstPageLoading implements PartialStateChanges {
@@ -193,6 +215,173 @@ public interface PartialStateChanges {
      * Indicates that loading the next page has started
      */
     final class NextPageLoading implements PartialStateChanges {
+    }
+
+    /**
+     * Indicates that movie details are loading
+     */
+    final class MovieDetailsLoading implements PartialStateChanges {
+
+        @Override
+        public String toString() {
+            return "MovieDetailsLoading{}";
+        }
+    }
+
+    /**
+     * Indicates that an error has occurred while loading movie details
+     */
+    final class MovieDetailsError implements PartialStateChanges {
+        private final Throwable error;
+
+        public MovieDetailsError(Throwable error) {
+            this.error = error;
+        }
+
+        public Throwable getError() {
+            return error;
+        }
+
+        @Override
+        public String toString() {
+            return "MovieDetailsError{" +
+                "error=" + error +
+                '}';
+        }
+    }
+
+    /**
+     * Indicates that the movie details have been loaded successfully
+     */
+    final class MovieDetailsLoaded implements PartialStateChanges {
+        private final Movie movie;
+
+        public MovieDetailsLoaded(Movie movie) {
+            this.movie = movie;
+        }
+
+        public Movie getData() {
+            return movie;
+        }
+
+        @Override
+        public String toString() {
+            return "MovieDetailsLoaded{" +
+                "movie=" + movie +
+                '}';
+        }
+    }
+
+    /**
+     * Indicates that similar movies are loading
+     */
+    final class SimilarMoviesLoading implements PartialStateChanges {
+
+        @Override
+        public String toString() {
+            return "SimilarMoviesLoading{}";
+        }
+    }
+
+
+    /**
+     * Indicates that an error has occurred while loading similar movies
+     */
+    final class SimilarMoviesError implements PartialStateChanges {
+        private final Throwable error;
+
+        public SimilarMoviesError(Throwable error) {
+            this.error = error;
+        }
+
+        public Throwable getError() {
+            return error;
+        }
+
+        @Override
+        public String toString() {
+            return "SimilarMoviesError{" +
+                "error=" + error +
+                '}';
+        }
+    }
+
+    /**
+     * Indicates that the movie details have been loaded successfully
+     */
+    final class SimilarMoviesLoaded implements PartialStateChanges {
+        private final List<Movie> data;
+
+        public SimilarMoviesLoaded(List<Movie> data) {
+            this.data = data;
+        }
+
+        public List<Movie> getData() {
+            return data;
+        }
+
+        @Override
+        public String toString() {
+            return "SimilarMoviesLoaded{" +
+                "data=" + data +
+                '}';
+        }
+    }
+
+    /**
+     * Indicates that the movie is being marked as watched
+     */
+    final class MarkingMovieAsWatched implements PartialStateChanges {
+
+        @Override
+        public String toString() {
+            return "MarkingMovieAsWatched{}";
+        }
+    }
+
+
+    /**
+     * Indicates that an error has occurred while marking the movie as watched
+     */
+    final class MarkingMovieAsWatchedError implements PartialStateChanges {
+        private final Throwable error;
+
+        public MarkingMovieAsWatchedError(Throwable error) {
+            this.error = error;
+        }
+
+        public Throwable getError() {
+            return error;
+        }
+
+        @Override
+        public String toString() {
+            return "MarkingMovieAsWatchedError{" +
+                "error=" + error +
+                '}';
+        }
+    }
+
+    /**
+     * Indicates that the movie was successfully marked as watched
+     */
+    final class MarkingMovieAsWatchedDone implements PartialStateChanges {
+        private final Boolean data;
+
+        public MarkingMovieAsWatchedDone(Boolean data) {
+            this.data = data;
+        }
+
+        public Boolean getData() {
+            return data;
+        }
+
+        @Override
+        public String toString() {
+            return "MarkingMovieAsWatchedDone{" +
+                "data=" + data +
+                '}';
+        }
     }
 
     /**

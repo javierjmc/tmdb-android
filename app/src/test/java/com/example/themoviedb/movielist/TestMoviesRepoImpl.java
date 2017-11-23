@@ -7,6 +7,7 @@ import com.example.themoviedb.data.domain.MoviesDataRepo;
 import com.example.themoviedb.data.domain.MoviesRepo;
 import com.example.themoviedb.data.domain.TestTheMovieDbApi;
 import com.example.themoviedb.data.model.FeedItem;
+import com.example.themoviedb.data.model.Movie;
 
 import java.util.List;
 
@@ -29,6 +30,16 @@ public class TestMoviesRepoImpl implements MoviesRepo {
 
     @Override
     public Observable<Pair<Integer, List<FeedItem>>> getMostPopularMovies(int page) {
+        return null;
+    }
+
+    @Override
+    public Observable<Movie> getMovieDetails(int movieId) {
+        return null;
+    }
+
+    @Override
+    public Observable<List<Movie>> getSimilarMovies(int movieId) {
         return null;
     }
 

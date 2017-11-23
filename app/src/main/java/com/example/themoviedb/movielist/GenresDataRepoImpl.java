@@ -29,6 +29,18 @@ public class GenresDataRepoImpl implements GenresDataRepo {
     }
 
     @Override
+    public Observable<List<String>> getGenreNames(List<Integer> genreIds) {
+        return genreDao.getGenres()
+            .toObservable()
+            .flatMapIterable(genres -> genres)
+            .filter(genre -> genreIds.contains(genre.id()))
+            .map(Genre::name)
+            .toList()
+            .toObservable()
+            .doOnNext(genres -> Timber.d("Dispatching %d genres from DB...", genres.size()));
+    }
+
+    @Override
     public void storeGenresLocal(List<Genre> genres) {
         Observable.fromCallable(() -> genreDao.insertAll(genres))
             .subscribeOn(Schedulers.io())

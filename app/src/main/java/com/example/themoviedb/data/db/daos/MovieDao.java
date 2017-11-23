@@ -26,12 +26,18 @@ public interface MovieDao {
     Single<List<Movie>> getMovies();
 
     /**
+     * Gets {@link Movie} from the database
+     */
+    @Query("SELECT * FROM movies WHERE movie_id = :movieId")
+    Single<Movie> getMovie(int movieId);
+
+    /**
      * Inserts a {@link Movie} object in the database
      *
      * @param movie Movie to be inserted
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Movie movie);
+    long insert(Movie movie);
 
     /**
      * Inserts a {@link List} of {@link Movie}s in the database
@@ -60,11 +66,32 @@ public interface MovieDao {
     void delete(Movie movie);
 
     /**
-     * Updates the given {@link Movie}s in the database
+     * Updates the given {@link Movie} in the database
      *
      * @param movie The movie to be updated
      * @return number of movies updated
      */
     @Update(onConflict = OnConflictStrategy.REPLACE)
     int update(Movie movie);
+
+    /**
+     * Updates {@link Movie} details in the database
+     *
+     * @param movieId Id of the movie to be updated
+     * @param tagline Tagline of the movie
+     * @param runtime Runtime of the movie
+     * @return number of movies matching the query
+     */
+    @Query("UPDATE movies SET tagline = :tagline, runtime = :runtime WHERE movie_id = :movieId")
+    int updateMovieDetails(int movieId, String tagline, int runtime);
+
+    /**
+     * Updates {@link Movie} details in the database
+     *
+     * @param movieId Id of the movie to be updated
+     * @param watched True if the movie has been watched
+     * @return number of movies matching the query
+     */
+    @Query("UPDATE movies SET watched = :watched WHERE movie_id = :movieId")
+    int updateMovieWatched(int movieId, boolean watched);
 }

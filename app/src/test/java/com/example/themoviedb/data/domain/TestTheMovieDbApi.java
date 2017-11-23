@@ -4,7 +4,6 @@ import android.support.annotation.Nullable;
 
 import com.example.themoviedb.data.model.Genre;
 import com.example.themoviedb.data.model.Movie;
-import com.example.themoviedb.data.model.MovieDetails;
 
 import java.util.List;
 
@@ -59,8 +58,8 @@ public interface TestTheMovieDbApi {
      *                default: popularity.desc
      */
     @GET("/3/movie/{movieId}")
-    Single<MovieDetails> getMovieDetails(@Path("movieId") long movieId,
-                                         @Nullable @Query("sort_by") String sortBy);
+    Single<Movie> getMovieDetails(@Path("movieId") long movieId,
+                                  @Nullable @Query("sort_by") String sortBy);
 
     /**
      * Get a list of similar movies. This is not the same as the "Recommendation" system you see on the website.

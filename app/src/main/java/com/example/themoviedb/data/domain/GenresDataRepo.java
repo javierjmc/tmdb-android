@@ -13,6 +13,8 @@ public interface GenresDataRepo {
 
     Observable<List<Genre>> getGenresLocal();
 
+    Observable<List<String>> getGenreNames(List<Integer> genreIds);
+
     void storeGenresLocal(List<Genre> genres);
 
 }
