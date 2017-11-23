@@ -40,11 +40,7 @@ public class SimilarMovieViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Movie movie, SimilarMoviesAdapter.OnSimilarMovieItemClickListener feedItemListener) {
         mRating.setText(String.valueOf(movie.voteAverage()));
-
-        final Boolean watched = movie.watched();
-        if (watched != null) {
-            mWatched.setVisibility(watched ? View.VISIBLE : View.GONE);
-        }
+        mWatched.setVisibility(movie.watched() != null && movie.watched() ? View.VISIBLE : View.GONE);
 
         GlideApp
             .with(mContext)

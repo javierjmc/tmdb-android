@@ -56,10 +56,7 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
         mGenres.setText(genres.toString().replaceAll("[\\[.\\].\\s+]", " "));
         mOverview.setText(movie.overview());
 
-        final Boolean watched = movie.watched();
-        if (watched != null) {
-            mWatched.setVisibility(watched ? View.VISIBLE : View.GONE);
-        }
+        mWatched.setVisibility(movie.watched() != null && movie.watched() ? View.VISIBLE : View.GONE);
 
         GlideApp
             .with(mContext)
