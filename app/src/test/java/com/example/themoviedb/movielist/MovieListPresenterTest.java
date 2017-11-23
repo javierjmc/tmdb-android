@@ -115,6 +115,16 @@ public class MovieListPresenterTest {
             return Observable.just(new Pair<>(1, mockMovies));
         }
 
+        @Override
+        public Observable<Movie> getMovieDetails(int movieId) {
+            return null;
+        }
+
+        @Override
+        public Observable<List<Movie>> getSimilarMovies(int movieId) {
+            return null;
+        }
+
     }
 
     private class DummyGenresRepo implements GenresRepo {
