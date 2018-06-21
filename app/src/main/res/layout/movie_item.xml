@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:design="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="180dp"
+  android:layout_marginBottom="4dp"
+  android:layout_marginEnd="16dp"
+  android:layout_marginStart="16dp"
+  android:layout_marginTop="4dp"
+  android:background="@color/dark_gray_light"
+  android:elevation="4dp">
+
+  <ImageView
+    android:id="@+id/poster"
+    android:layout_width="100dp"
+    android:layout_height="match_parent"
+    design:layout_constraintBottom_toBottomOf="parent"
+    design:layout_constraintStart_toStartOf="parent"
+    design:layout_constraintTop_toTopOf="parent"
+    tools:background="@color/blue" />
+
+  <TextView
+    android:id="@+id/title"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:ellipsize="end"
+    android:maxLines="2"
+    android:textColor="@android:color/white"
+    android:textSize="18sp"
+    design:layout_constraintEnd_toStartOf="@+id/rating"
+    design:layout_constraintStart_toEndOf="@+id/poster"
+    design:layout_constraintTop_toTopOf="parent"
+    tools:text="It" />
+
+  <TextView
+    android:id="@+id/rating"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:drawableEnd="@drawable/ic_star"
+    android:drawablePadding="5dp"
+    android:drawableTint="@color/yellow"
+    android:textColor="@android:color/white"
+    android:textSize="18sp"
+    design:layout_constraintBaseline_toBaselineOf="@+id/title"
+    design:layout_constraintEnd_toEndOf="parent"
+    tools:text="7.8" />
+
+  <TextView
+    android:id="@+id/date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="7dp"
+    android:drawablePadding="5dp"
+    android:drawableStart="@drawable/ic_calendar"
+    android:drawableTint="@android:color/white"
+    android:paddingEnd="5dp"
+    android:textColor="@android:color/white"
+    design:layout_constraintStart_toEndOf="@+id/poster"
+    design:layout_constraintTop_toBottomOf="@+id/title"
+    tools:text="2017" />
+
+
+  <TextView
+    android:id="@+id/genres"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:textAlignment="textEnd"
+    android:textColor="@android:color/white"
+    android:textStyle="italic"
+    design:layout_constraintBaseline_toBaselineOf="@+id/date"
+    design:layout_constraintEnd_toEndOf="parent"
+    design:layout_constraintStart_toEndOf="@+id/date"
+    tools:text="Drama, Horror" />
+
+  <TextView
+    android:id="@+id/overview"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_margin="8dp"
+    android:ellipsize="end"
+    android:maxLines="5"
+    android:textColor="@android:color/white"
+    design:layout_constraintBottom_toBottomOf="parent"
+    design:layout_constraintEnd_toEndOf="parent"
+    design:layout_constraintStart_toEndOf="@+id/poster"
+    design:layout_constraintTop_toBottomOf="@+id/date"
+    tools:text="In a small town in Maine, seven children known as The Losers Club come face to face with life problems, bullies and a monster that takes the shape of a clown called Pennywise." />
+
+  <ImageView
+    android:id="@+id/seen"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="8dp"
+    android:src="@drawable/ic_seen"
+    android:tint="@color/green"
+    android:visibility="gone"
+    tools:visibility="visible"
+    design:layout_constraintBottom_toBottomOf="parent"
+    design:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

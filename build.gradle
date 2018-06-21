@@ -6,16 +6,30 @@ buildscript {
 
         // Versions that need to be in sync can be declared here
         vers = [
-                'compileSdk': 27,
-                'buildTools': '27.0.0',
-                'targetSdk' : 27,
-                'minSdk'    : 21,
+                'compileSdk' : 27,
+                'buildTools' : '27.0.0',
+                'targetSdk'  : 27,
+                'minSdk'     : 21,
 
-                'support'   : '27.0.0',
+                'support'    : '27.0.1',
+                'mosby'      : '3.0.4',
+                'rxjava2'    : '2.1.6',
+                'rxandroid2' : '2.0.1',
+                'timber'     : '4.6.0',
+                'slf4j'      : '3.0',
+                'butterknife': '8.8.1',
+                'dagger'     : '2.13',
+                'retrofit'   : '2.3.0',
+                'okhttp'     : '3.6.0',
+                'glide'      : '4.3.1',
+                'rxbinding'  : '2.0.0',
+                'room'       : '1.0.0',
+                'stetho'     : '1.5.0',
         ]
 
         testvers = [
-                'junit': '4.12'
+                'junit'  : '4.12',
+                'mockito': '2.12.0'
         ]
 
     }
@@ -24,10 +38,11 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
-        
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -38,6 +53,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
     }
 }
 
